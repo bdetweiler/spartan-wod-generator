@@ -1,0 +1,60 @@
+{
+    "title": "Hold Your Ground",
+    "category": "athleticism",
+    "quote": "The greatest oak was once a little nut who held its ground.",
+    "quoteBy": "Unknown",
+    "description": "Going up? That’s where this workout is heading.",
+
+    "warmup": { "exercises": [ {"exercise": { "type": "jumping jack", "order": 1, "repsMin": 75, "repsMax": 75}},
+                               {"exercise": { "type": "jog", "order": 2, "distanceMin": 1, "distanceMax": 1}},
+                               {"exercise": { "type": "dynamic warmup", "order": 3, "distanceMin": 0.0625, "distanceMax": 0.0625, "repsMin": 2, "repsMax": 2}},
+                               {"exercise": { "type": "dynamic warmup", "order": 4, "distanceMin": 0.0625, "distanceMax": 0.0625, "repsMin": 2, "repsMax": 2}},
+                               {"exercise": { "type": "dynamic warmup", "order": 5, "distanceMin": 0.0625, "distanceMax": 0.0625, "repsMin": 2, "repsMax": 2}}
+             ]},
+    "mainSet": { 
+                 "sprint": { "repsMin": 1,
+                             "repsMax": 1,
+                             "exercises": [ {"exercise": { "type": "burpee", "order": 1, "repsMin": 20, "repsMax": 20 }},
+                                            {"exercise": { "type": "run", "order": 2, "distanceMin": 1, "distanceMax": 1 }},
+                                            {"exercise": { "type": "crunch", "order": 3, "repsMin": 30, "repsMax": 30 }},
+                                            {"exercise": { "type": "leg raise", "order": 4, "repsMin": 10, "repsMax": 10}},
+                                            {"exercise": { "type": "plank", "order": 5, "durationMin": 0.5, "durationMax": 0.5 }},
+                                            {"exercise": { "type": "bear crawl", "order": 6, "repsMin": 3, "repsMax": 3, "distanceMin": 0.0625, "distanceMax": 0.0625}}
+                                ]
+                          },
+                 "super": { "repsMin": 2,
+                            "repsMax": 2,
+                             "exercises": [ {"exercise": { "type": "burpee", "order": 1, "repsMin": 20, "repsMax": 20 }},
+                                            {"exercise": { "type": "run", "order": 2, "distanceMin": 1, "distanceMax": 1 }},
+                                            {"exercise": { "type": "crunch", "order": 3, "repsMin": 30, "repsMax": 30 }},
+                                            {"exercise": { "type": "leg raise", "order": 4, "repsMin": 10, "repsMax": 10}},
+                                            {"exercise": { "type": "plank", "order": 5, "durationMin": 0.5, "durationMax": 0.5 }},
+                                            {"exercise": { "type": "bear crawl", "order": 6, "repsMin": 3, "repsMax": 3, "distanceMin": 0.0625, "distanceMax": 0.0625}}
+                                ]
+                          },
+                 "beast": { "repsMin": 3,
+                            "repsMax": 3,  
+                             "exercises": [ {"exercise": { "type": "burpee", "order": 1, "repsMin": 20, "repsMax": 20 }},
+                                            {"exercise": { "type": "run", "order": 2, "distanceMin": 1, "distanceMax": 1 }},
+                                            {"exercise": { "type": "crunch", "order": 3, "repsMin": 30, "repsMax": 30 }},
+                                            {"exercise": { "type": "leg raise", "order": 4, "repsMin": 10, "repsMax": 10}},
+                                            {"exercise": { "type": "plank", "order": 5, "durationMin": 0.5, "durationMax": 0.5 }},
+                                            {"exercise": { "type": "bear crawl", "order": 6, "repsMin": 3, "repsMax": 3, "distanceMin": 0.0625, "distanceMax": 0.0625}}
+                                ]
+                          },
+                 "trifecta": { "repsMin": 4,
+                               "repsMax": 4,
+                             "exercises": [ {"exercise": { "type": "burpee", "order": 1, "repsMin": 20, "repsMax": 20 }},
+                                            {"exercise": { "type": "run", "order": 2, "distanceMin": 1, "distanceMax": 1 }},
+                                            {"exercise": { "type": "crunch", "order": 3, "repsMin": 30, "repsMax": 30 }},
+                                            {"exercise": { "type": "leg raise", "order": 4, "repsMin": 10, "repsMax": 10}},
+                                            {"exercise": { "type": "plank", "order": 5, "durationMin": 0.5, "durationMax": 0.5 }},
+                                            {"exercise": { "type": "bear crawl", "order": 6, "repsMin": 3, "repsMax": 3, "distanceMin": 0.0625, "distanceMax": 0.0625}}
+                                ]
+                            } 
+    },
+
+    "coolDown": { "reps": 1,
+                 "exercises": [ {"recovery": { "type": "stretch", "order": 1, "durationMin": 99999, "durationMax": 99999 }} ]
+    }
+}

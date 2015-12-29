@@ -1,0 +1,64 @@
+{
+    "title": "Cheaper than Healthcare",
+    "category": "athleticism",
+    "quote": "",
+    "quoteBy": "",
+    "description": "Put those feet to good use in this workout. Celebrate your abilities by maximizing them.",
+
+    "warmup": {  "exercises": [ "exercise": { "type": "dynamic warm-up" } ] }, 
+
+    "mainSet": { 
+                 "sprint": { "repsMin": 1,
+                             "repsMax": 4,
+                             "exercises": [
+                                {"exercise": { "type": "mountain climber",     "order": 1, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "Spiderman push-up",    "order": 2, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "plank",                "order": 3, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "inverted pull-up",     "order": 4, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "medicine ball sit-up", "order": 5, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "squat jump",           "order": 6, "durationMin": 1, "durationMax": 1 }},
+                                {"recovery": { "type": "walk/jog",             "order": 7, "durationMin": 3, "durationMax": 3 }}
+                             ]
+                          },
+                 "super": { "reps": 2,
+                            "repsMax": 8,
+                             "exercises": [
+                                {"exercise": { "type": "mountain climber",     "order": 1, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "Spiderman push-up",    "order": 2, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "plank",                "order": 3, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "inverted pull-up",     "order": 4, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "medicine ball sit-up", "order": 5, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "squat jump",           "order": 6, "durationMin": 1, "durationMax": 1 }},
+                                {"recovery": { "type": "walk/jog",             "order": 7, "durationMin": 3, "durationMax": 3 }}
+                             ]
+                          },
+                 "beast": { "reps": 3,
+                            "repsMax": 12,
+                             "exercises": [
+                                {"exercise": { "type": "mountain climber",     "order": 1, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "Spiderman push-up",    "order": 2, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "plank",                "order": 3, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "inverted pull-up",     "order": 4, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "medicine ball sit-up", "order": 5, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "squat jump",           "order": 6, "durationMin": 1, "durationMax": 1 }},
+                                {"recovery": { "type": "walk/jog",             "order": 7, "durationMin": 3, "durationMax": 3 }}
+                             ]
+                          },
+                 "trifecta": { "reps": 4,
+                               "repsMax": 16,
+                             "exercises": [
+                                {"exercise": { "type": "mountain climber",     "order": 1, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "Spiderman push-up",    "order": 2, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "plank",                "order": 3, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "inverted pull-up",     "order": 4, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "medicine ball sit-up", "order": 5, "durationMin": 1, "durationMax": 1 }},
+                                {"exercise": { "type": "squat jump",           "order": 6, "durationMin": 1, "durationMax": 1 }},
+                                {"recovery": { "type": "walk/jog",             "order": 7, "durationMin": 3, "durationMax": 3 }}
+                             ]
+                            } 
+    },
+
+    "coolDown": { "reps": 1,
+                 "exercises": [ {"recovery": { "type": "stretch", "order": 1, "durationMin": 9999, "durationMax": 9999 }} ]
+    }
+}
