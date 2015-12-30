@@ -1,0 +1,108 @@
+{
+    "title": "Hill Intervals",
+    "category": "athleticism",
+    "quote": "The world turns aside to let any man pass who knows where he is going.",
+    "quoteBy": "Epictetus",
+    "description": "Going up? That’s where this workout is heading.",
+
+    "warmup": { "exercises": [ {"exerciseLoop": { "repsMin": 2,
+                                                  "repsMax": 2,
+                                                  "exercises": [
+                                                    {"exercise": { "type": "dynamic warmup", "order": 1, "distanceMin": 0.0625, "distanceMax": 0.0625}},
+                                                    {"exercise": { "type": "dynamic warmup", "order": 2, "distanceMin": 0.0625, "distanceMax": 0.0625}},
+                                                    {"exercise": { "type": "dynamic warmup", "order": 3, "distanceMin": 0.0625, "distanceMax": 0.0625}}
+                                                  ]
+                                             }}
+                    ]
+    }, 
+    "mainSet": { 
+                 "sprint": { "repsMin": 1,
+                             "repsMax": 10,
+                             "exercises": [
+                                    {"exerciseLoop": { "repsMin": 10,
+                                                       "repsMax": 10,
+                                                       "exercise": { "type": "hill sprint", "order": 1, "durationMin": 0.1666, "durationMax": 0.1666 },
+                                                       "recovery": { "type": "rest", "order": 2, "durationMin": 0.1666, "durationMax": 0.1666 }
+                                                     }},
+                                    {"exerciseLoop": { "repsMin": 4,
+                                                       "repsMax": 4,
+                                                       "exercise": { "type": "hill sprint", "order": 3, "durationMin": 0.3333, "durationMax": 0.3333 },
+                                                       "recovery": { "type": "rest", "order": 4, "durationMin": 0.3333, "durationMax": 0.3333 }
+                                                     }},
+                                    {"exerciseLoop": { "repsMin": 2,
+                                                       "repsMax": 2,
+                                                       "exercise": { "type": "hill sprint", "order": 5, "durationMin": 0.5, "durationMax": 0.5 },
+                                                       "recovery": { "type": "rest", "order": 6, "durationMin": 0.1666, "durationMax": 0.1666 }
+                                                     }},
+                                    {"exercise": { "type": "jog", "order": 7, "durationMin": 15, "durationMax": 20 }}
+                                ]
+                          },
+                 "super": { "repsMin": 1,
+                            "repsMax": 10,
+                             "exercises": [
+                                    {"exerciseLoop": { "repsMin": 10,
+                                                       "repsMax": 10,
+                                                       "exercise": { "type": "hill sprint", "order": 1, "durationMin": 0.1666, "durationMax": 0.1666 },
+                                                       "recovery": { "type": "rest", "order": 2, "durationMin": 0.1666, "durationMax": 0.1666 }
+                                                     }},
+                                    {"exerciseLoop": { "repsMin": 4,
+                                                       "repsMax": 4,
+                                                       "exercise": { "type": "hill sprint", "order": 3, "durationMin": 0.3333, "durationMax": 0.3333 },
+                                                       "recovery": { "type": "rest", "order": 4, "durationMin": 0.3333, "durationMax": 0.3333 }
+                                                     }},
+                                    {"exerciseLoop": { "repsMin": 2,
+                                                       "repsMax": 2,
+                                                       "exercise": { "type": "hill sprint", "order": 5, "durationMin": 0.5, "durationMax": 0.5 },
+                                                       "recovery": { "type": "rest", "order": 6, "durationMin": 0.1666, "durationMax": 0.1666 }
+                                                     }},
+                                    {"exercise": { "type": "jog", "order": 7, "durationMin": 15, "durationMax": 20 }}
+                                ]
+                          },
+                 "beast": { "repsMin": 1,
+                            "repsMax": 10,
+                             "exercises": [
+                                    {"exerciseLoop": { "repsMin": 10,
+                                                       "repsMax": 10,
+                                                       "exercise": { "type": "hill sprint", "order": 1, "durationMin": 0.1666, "durationMax": 0.1666 },
+                                                       "recovery": { "type": "rest", "order": 2, "durationMin": 0.1666, "durationMax": 0.1666 }
+                                                     }},
+                                    {"exerciseLoop": { "repsMin": 4,
+                                                       "repsMax": 4,
+                                                       "exercise": { "type": "hill sprint", "order": 3, "durationMin": 0.3333, "durationMax": 0.3333 },
+                                                       "recovery": { "type": "rest", "order": 4, "durationMin": 0.3333, "durationMax": 0.3333 }
+                                                     }},
+                                    {"exerciseLoop": { "repsMin": 2,
+                                                       "repsMax": 2,
+                                                       "exercise": { "type": "hill sprint", "order": 5, "durationMin": 0.5, "durationMax": 0.5 },
+                                                       "recovery": { "type": "rest", "order": 6, "durationMin": 0.1666, "durationMax": 0.1666 }
+                                                     }},
+                                    {"exercise": { "type": "jog", "order": 7, "durationMin": 15, "durationMax": 20 }}
+                                ]
+                          },
+                 "trifecta": { "repsMin": 1,
+                               "repsMax": 10,
+                             "exercises": [
+                                    {"exerciseLoop": { "repsMin": 10,
+                                                       "repsMax": 10,
+                                                       "exercise": { "type": "hill sprint", "order": 1, "durationMin": 0.1666, "durationMax": 0.1666 },
+                                                       "recovery": { "type": "rest", "order": 2, "durationMin": 0.1666, "durationMax": 0.1666 }
+                                                     }},
+                                    {"exerciseLoop": { "repsMin": 4,
+                                                       "repsMax": 4,
+                                                       "exercise": { "type": "hill sprint", "order": 3, "durationMin": 0.3333, "durationMax": 0.3333 },
+                                                       "recovery": { "type": "rest", "order": 4, "durationMin": 0.3333, "durationMax": 0.3333 }
+                                                     }},
+                                    {"exerciseLoop": { "repsMin": 2,
+                                                       "repsMax": 2,
+                                                       "exercise": { "type": "hill sprint", "order": 5, "durationMin": 0.5, "durationMax": 0.5 },
+                                                       "recovery": { "type": "rest", "order": 6, "durationMin": 0.1666, "durationMax": 0.1666 }
+                                                     }},
+                                    {"exercise": { "type": "jog", "order": 7, "durationMin": 15, "durationMax": 20 }}
+                                ]
+                            } 
+    },
+
+    "coolDown": { "reps": 1,
+                 "exercises": [ {"recovery": { "type": "stretch", "order": 1, "durationMin": 99999, "durationMax": 99999 }} ]
+    }
+}

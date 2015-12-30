@@ -1,0 +1,52 @@
+{
+    "title": "A Work of Art",
+    "category": "athleticism",
+    "quote": "The human foot is a masterpiece of engineering and a work of art.",
+    "quoteBy": "Leonardo da Vinci",
+    "description": "Put those feet to good use in this workout. Celebrate your abilities by maximizing them.",
+
+    "warmup": { "exercises": [
+                    {"exercise": { "type": "dynamic warm-up", "order": 1, "durationMin": 99999, "durationMax": 99999 }},
+                    {"exercise": { "type": "run",             "order": 2, "durationMin": 10, "durationMax": 10 }}
+                ]
+    }, 
+
+    "mainSet": { 
+                 "sprint": { "repsMin": 99999,
+                             "repsMax": 99999,
+                             "exercises": [
+                                {"exercise": { "type": "run", "order": 1, "distanceMin": 0.5, "distanceMax": 0.5 }},
+                                {"exercise": { "type": "burpee", "order": 2, "repsMin": 10, "repsMax": 10 }},
+                                {"recovery": { "type": "walk/jog", "order": 3, "durationMin": 2, "durationMax": 4 }}
+                                ]
+                          },
+                 "super": { "repsMin": 99999,
+                            "repsMax": 99999,
+                            "exercises": [ 
+                                {"exercise": { "type": "run", "order": 1, "distanceMin": 0.5, "distanceMax": 0.5 }},
+                                {"exercise": { "type": "burpee", "order": 2, "repsMin": 10, "repsMax": 10 }},
+                                {"recovery": { "type": "walk/jog", "order": 3, "durationMin": 2, "durationMax": 4 }}
+                                 ]
+                          },
+                 "beast": { "repsMin": 99999,
+                            "repsMax": 99999,
+                            "exercises": [
+                                {"exercise": { "type": "run", "order": 1, "distanceMin": 0.5, "distanceMax": 0.5 }},
+                                {"exercise": { "type": "burpee", "order": 2, "repsMin": 10, "repsMax": 10 }},
+                                {"recovery": { "type": "walk/jog", "order": 3, "durationMin": 2, "durationMax": 4 }}
+                                 ]
+                          },
+                 "trifecta": { "repsMin": 99999,
+                               "repsMax": 99999,
+                               "exercises": [
+                                {"exercise": { "type": "run", "order": 1, "distanceMin": 0.5, "distanceMax": 0.5 }},
+                                {"exercise": { "type": "burpee", "order": 2, "repsMin": 10, "repsMax": 10 }},
+                                {"recovery": { "type": "walk/jog", "order": 3, "durationMin": 2, "durationMax": 4 }}
+                                    ]
+                            } 
+    },
+
+    "coolDown": { "reps": 1,
+                 "exercises": [ {"recovery": { "type": "stretch", "order": 1, "durationMin": 99999, "durationMax": 99999 }} ]
+    }
+}

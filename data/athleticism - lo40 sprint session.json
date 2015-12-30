@@ -1,0 +1,79 @@
+{
+    "title": "Lo40: Sprint Session",
+    "category": "athleticism",
+    "quote": "Trust only movement. Life happens at the level of events, not of words. Trust movement.",
+    "quoteBy": "Alfred Adler",
+    "description": "Going up? That’s where this workout is heading.",
+
+    "warmup": { "exercises": [ {"exercise": { "type": "dynamic warmup", "order": 1, "distanceMin": 0.0625, "distanceMax": 0.0625, "repsMin": 2, "repsMax": 2}},
+                               {"exercise": { "type": "dynamic warmup", "order": 2, "distanceMin": 0.0625, "distanceMax": 0.0625, "repsMin": 2, "repsMax": 2}},
+                               {"exercise": { "type": "dynamic warmup", "order": 3, "distanceMin": 0.0625, "distanceMax": 0.0625, "repsMin": 2, "repsMax": 2}},
+                               {"exercise": { "type": "jump rope", "order": 4, "durationMin": 5, "durationMax": 10}},
+                               {"exercise": { "type": "jog", "order": 5, "durationMin": 5, "durationMax": 10}}
+             ]},
+    "mainSet": { "sprint": { "repsMin": 1,
+                             "repsMax": 1,
+                             "exercises": [ {"exerciseLoop": { "repsMin": 15,
+                                                               "repsMax": 15,
+                                                                "exercise": { "type": "sprint", "order": 6, "distanceMin": 0.125, "distanceMax": 0.125 },
+                                                                "recovery": { "type": "rest", "order": 7, "durationMin": 2, "durationMax": 2 }
+                                                            }},
+                                            {"exerciseLoop": { "repsMin": 8,
+                                                               "repsMax": 8,
+                                                                "exercise": { "type": "sprint", "order": 8, "distanceMin": 0.125, "distanceMax": 0.125 },
+                                                                "recovery": { "type": "rest", "order": 9, "durationMin": 2, "durationMax": 2 }
+                                                            }},
+                                            {"exercise": { "type": "run", "order": 10, "durationMin": 10, "durationMax": 40 }}
+                                ]
+                          },
+                 "super": { "repsMin": 1,
+                            "repsMax": 1,
+                             "exercises": [ {"exerciseLoop": { "repsMin": 15,
+                                                               "repsMax": 15,
+                                                                "exercise": { "type": "sprint", "order": 6, "distanceMin": 0.125, "distanceMax": 0.125 },
+                                                                "recovery": { "type": "rest", "order": 7, "durationMin": 2, "durationMax": 2 }
+                                                            }},
+                                            {"exerciseLoop": { "repsMin": 8,
+                                                               "repsMax": 8,
+                                                                "exercise": { "type": "sprint", "order": 8, "distanceMin": 0.125, "distanceMax": 0.125 },
+                                                                "recovery": { "type": "rest", "order": 9, "durationMin": 2, "durationMax": 2 }
+                                                            }},
+                                            {"exercise": { "type": "run", "order": 10, "durationMin": 10, "durationMax": 40 }}
+                                ]
+                          },
+                 "beast": { "repsMin": 1,
+                            "repsMax": 1,  
+                             "exercises": [ {"exerciseLoop": { "repsMin": 15,
+                                                               "repsMax": 15,
+                                                                "exercise": { "type": "sprint", "order": 6, "distanceMin": 0.125, "distanceMax": 0.125 },
+                                                                "recovery": { "type": "rest", "order": 7, "durationMin": 2, "durationMax": 2 }
+                                                            }},
+                                            {"exerciseLoop": { "repsMin": 8,
+                                                               "repsMax": 8,
+                                                                "exercise": { "type": "sprint", "order": 8, "distanceMin": 0.125, "distanceMax": 0.125 },
+                                                                "recovery": { "type": "rest", "order": 9, "durationMin": 2, "durationMax": 2 }
+                                                            }},
+                                            {"exercise": { "type": "run", "order": 10, "durationMin": 10, "durationMax": 40 }}
+                                ]
+                          },
+                 "trifecta": { "repsMin": 4,
+                               "repsMax": 4,
+                             "exercises": [ {"exerciseLoop": { "repsMin": 15,
+                                                               "repsMax": 15,
+                                                                "exercise": { "type": "sprint", "order": 6, "distanceMin": 0.125, "distanceMax": 0.125 },
+                                                                "recovery": { "type": "rest", "order": 7, "durationMin": 2, "durationMax": 2 }
+                                                            }},
+                                            {"exerciseLoop": { "repsMin": 8,
+                                                               "repsMax": 8,
+                                                                "exercise": { "type": "sprint", "order": 8, "distanceMin": 0.125, "distanceMax": 0.125 },
+                                                                "recovery": { "type": "rest", "order": 9, "durationMin": 2, "durationMax": 2 }
+                                                            }},
+                                            {"exercise": { "type": "run", "order": 10, "durationMin": 10, "durationMax": 40 }}
+                                ]
+                            } 
+    },
+
+    "coolDown": { "reps": 1,
+                 "exercises": [ {"recovery": { "type": "stretch", "order": 1, "durationMin": 99999, "durationMax": 99999 }} ]
+    }
+}

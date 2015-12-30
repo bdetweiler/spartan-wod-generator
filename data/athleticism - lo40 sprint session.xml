@@ -1,0 +1,767 @@
+<spartan_wod>
+    <name>Lo40: Sprint Session</name>
+    <category>athleticism</category>
+    <quote>Trust only movement. Life happens at the level of events, not of words. Trust movement.</quote>
+    <quote_by>Alfred Adler</quote_by>
+    <description>Going up? That’s where this workout is heading.</description>
+
+    <warmup_set> 
+        <set_of_sets> 
+            <exercise_set_join order="1">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="2" 
+                              reps_max="2" 
+                              distance_min="0.0625" 
+                              distance_max="0.0625" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min=""
+                              rest_duration_max="">
+                    <exercise>
+                        <name>dynamic warmup</name>
+                        <category>warmup</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+            <exercise_set_join order="2">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="2" 
+                              reps_max="2" 
+                              distance_min="0.0625" 
+                              distance_max="0.0625" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min=""
+                              rest_duration_max="">
+                    <exercise>
+                        <name>dynamic warmup</name>
+                        <category>warmup</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+            <exercise_set_join order="3">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="2" 
+                              reps_max="2" 
+                              distance_min="0.0625" 
+                              distance_max="0.0625" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min=""
+                              rest_duration_max="">
+                    <exercise>
+                        <name>dynamic warmup</name>
+                        <category>warmup</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+            <exercise_set_join order="4">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="" 
+                              reps_max="" 
+                              distance_min="" 
+                              distance_max="" 
+                              duration_min="5" 
+                              duration_max="10" 
+                              rest_duration_min=""
+                              rest_duration_max="">
+                    <exercise>
+                        <name>jump rope</name>
+                        <category>warmup</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+            <exercise_set_join order="5">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="" 
+                              reps_max="" 
+                              distance_min="" 
+                              distance_max="" 
+                              duration_min="5" 
+                              duration_max="10" 
+                              rest_duration_min=""
+                              rest_duration_max="">
+                    <exercise>
+                        <name>jog</name>
+                        <category>warmup</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+        </set_of_sets>
+    </warmup_set>
+
+    <main_set>
+        <set_of_sets reps_min="1" 
+                     reps_max="1" 
+                     distance_min="0.0625" 
+                     distance_max="0.0625" 
+                     duration_min="" 
+                     duration_max="" 
+                     rest_duration_min=""
+                     rest_duration_max=""
+                     type="sprint">
+
+            <exercise_set_join order="1">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="15" 
+                              reps_max="15" 
+                              distance_min="0.125" 
+                              distance_max="0.125" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>sprint</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+
+            <exercise_set_join order="2">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="8" 
+                              reps_max="8" 
+                              distance_min="0.125" 
+                              distance_max="0.125" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>sprint</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+
+            <exercise_set_join order="3">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="1" 
+                              reps_max="1" 
+                              distance_min="" 
+                              distance_max="" 
+                              duration_min="10" 
+                              duration_max="40" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>run</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+        </set_of_sets>
+
+        <set_of_sets reps_min="2" 
+                     reps_max="2" 
+                     distance_min="0.0625" 
+                     distance_max="0.0625" 
+                     duration_min="" 
+                     duration_max="" 
+                     rest_duration_min=""
+                     rest_duration_max=""
+                     type="super">
+
+            <exercise_set_join order="1">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="15" 
+                              reps_max="15" 
+                              distance_min="0.125" 
+                              distance_max="0.125" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>super</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+
+            <exercise_set_join order="2">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="8" 
+                              reps_max="8" 
+                              distance_min="0.125" 
+                              distance_max="0.125" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>super</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+
+            <exercise_set_join order="3">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="1" 
+                              reps_max="1" 
+                              distance_min="" 
+                              distance_max="" 
+                              duration_min="10" 
+                              duration_max="40" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>run</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+        </set_of_sets>
+
+        <set_of_sets reps_min="3" 
+                     reps_max="3" 
+                     distance_min="0.0625" 
+                     distance_max="0.0625" 
+                     duration_min="" 
+                     duration_max="" 
+                     rest_duration_min=""
+                     rest_duration_max=""
+                     type="beast">
+
+            <exercise_set_join order="1">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="15" 
+                              reps_max="15" 
+                              distance_min="0.125" 
+                              distance_max="0.125" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>beast</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+
+            <exercise_set_join order="2">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="8" 
+                              reps_max="8" 
+                              distance_min="0.125" 
+                              distance_max="0.125" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>beast</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+
+            <exercise_set_join order="3">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="1" 
+                              reps_max="1" 
+                              distance_min="" 
+                              distance_max="" 
+                              duration_min="10" 
+                              duration_max="40" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>run</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+        </set_of_sets>
+
+        <set_of_sets reps_min="4" 
+                     reps_max="4" 
+                     distance_min="0.0625" 
+                     distance_max="0.0625" 
+                     duration_min="" 
+                     duration_max="" 
+                     rest_duration_min=""
+                     rest_duration_max=""
+                     type="trifecta">
+
+            <exercise_set_join order="1">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="15" 
+                              reps_max="15" 
+                              distance_min="0.125" 
+                              distance_max="0.125" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>trifecta</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+
+            <exercise_set_join order="2">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="8" 
+                              reps_max="8" 
+                              distance_min="0.125" 
+                              distance_max="0.125" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>trifecta</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+
+            <exercise_set_join order="3">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="1" 
+                              reps_max="1" 
+                              distance_min="" 
+                              distance_max="" 
+                              duration_min="10" 
+                              duration_max="40" 
+                              rest_duration_min="2"
+                              rest_duration_max="2">
+                    <exercise>
+                        <name>run</name>
+                        <category>athleticism</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+        </set_of_sets>
+    </main_set>
+
+    <cooldown_set>
+        <set_of_sets reps_min="1" 
+                     reps_max="1" 
+                     distance_min="" 
+                     distance_max="" 
+                     duration_min="" 
+                     duration_max="" 
+                     rest_duration_min=""
+                     rest_duration_max=""
+                     type="any">
+            <exercise_set_join order="1">
+                <exercise_set type="any" 
+                              direction="" 
+                              reps_min="1" 
+                              reps_max="1" 
+                              distance_min="" 
+                              distance_max="" 
+                              duration_min="" 
+                              duration_max="" 
+                              rest_duration_min=""
+                              rest_duration_max="">
+                    <exercise>
+                        <name>stretch</name>
+                        <category>cooldown</category>
+                        <demo_url>http://www.blah.com</demo_url>
+                        <general_muscle_group>full body</general_muscle_group>
+                        <target_muscle_group>full body</target_muscle_group>
+                        <loc_indoors>1</loc_indoors>
+                        <loc_indoors>1</loc_outdoors>
+                        <eq_jump_rope>0</eq_jump_rope>
+                        <eq_pullup_bar>0</eq_pullup_bar>
+                        <eq_weights>0</eq_weights>
+                        <eq_kettle_bells>0</eq_kettle_bells>
+                        <eq_heavy_object>0</eq_heavy_object>
+                        <eq_trx>0</eq_trx>
+                        <eq_med_ball>0</eq_med_ball>
+                        <eq_box>0</eq_box>
+                        <eq_squat_rack>0</eq_squat_rack>
+                        <eq_treadmill>0</eq_treadmill>
+                        <eq_track>0</eq_track>
+                        <eq_trail>0</eq_trail>
+                        <eq_hills>0</eq_hills>
+                        <eq_pool>0</eq_pool>
+                        <eq_bike>0</eq_bike>
+                        <eq_row_machine>0</eq_row_machine>
+                    </exercise>
+                <exercise_set>
+            </exercise_set_join>
+        </set_of_sets>
+    </cooldown_set>
+<spartan_wod>

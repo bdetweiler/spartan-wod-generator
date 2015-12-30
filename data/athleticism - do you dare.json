@@ -1,0 +1,69 @@
+{
+    "title": "Do You Dare?",
+    "category": "athleticism",
+    "quote": "It is not because things are difficult that we do not dare; it is because we do not dare that things are difficult.", 
+    "quoteBy": "Seneca",
+    "description": "",
+
+    "warmup": { "exercises": [
+                        {"exercise": { "type": "jump rope", "order": 1, "durationMin": 3, "durationMax": 3 }},
+                        {"exercise": { "type": "pistol squat", "order": 2, "repsMin": 10, "repsMax": 10 }},
+                        {"exercise": { "type": "plyometric push-up", "order": 3, "repsMin": 10, "repsMax": 10 }},
+                        {"exercise": { "type": "glute kickback", "order": 4, "repsMin": 10, "repsMax": 10 }}
+                ]
+    }, 
+
+    "mainSet": { 
+                 "sprint": { "repsMin": 99999,
+                             "repsMax": 99999,
+                             "exercises": [ 
+                                            "exerciseLoop": { "durationMin": 20,
+                                                              "durationMax": 20,
+                                                              "exercise": { "type": "uphill walk", "order": 1, "distanceMin": 9999, "distanceMax": 9999 },
+                                                              "exercise": { "type": "uphill sprint", "order": 2, "distanceMin": .25, "distanceMax": .25 },
+                                                              "recovery": { "type": "walk/jog", "order": 3, "durationMin": 2, "durationMax": 4 },
+                                            "exercise": { "type": "trail run", "order": 4, "durationMin": 35, "durationMax": 35 }
+                                ]
+                          },
+                 "super": { "repsMin": 99999,
+                            "repsMax": 99999,
+                             "exercises": [ 
+                                            "exerciseLoop": { "durationMin": 20,
+                                                              "durationMax": 20,
+                                                              "exercise": { "type": "uphill walk", "order": 1, "distanceMin": 9999, "distanceMax": 9999 },
+                                                              "exercise": { "type": "uphill sprint", "order": 2, "distanceMin": .25, "distanceMax": .25 },
+                                                              "recovery": { "type": "walk/jog", "order": 3, "durationMin": 2, "durationMax": 4 },
+                                            "exercise": { "type": "trail run", "order": 4, "durationMin": 35, "durationMax": 35 }
+                                            
+                                ]
+                          },
+                 "beast": { "repsMin": 99999,
+                            "repsMax": 99999,
+                             "exercises": [ 
+                                            "exerciseLoop": { "durationMin": 20,
+                                                              "durationMax": 20,
+                                                              "exercise": { "type": "uphill walk", "order": 1, "distanceMin": 9999, "distanceMax": 9999 },
+                                                              "exercise": { "type": "uphill sprint", "order": 2, "distanceMin": .25, "distanceMax": .25 },
+                                                              "recovery": { "type": "walk/jog", "order": 3, "durationMin": 2, "durationMax": 4 },
+                                            "exercise": { "type": "trail run", "order": 4, "durationMin": 35, "durationMax": 35 }
+                                            
+                                ]
+                          },
+                 "trifecta": { "repsMin": 99999,
+                               "repsMax": 99999,
+                             "exercises": [ 
+                                            "exerciseLoop": { "durationMin": 20,
+                                                              "durationMax": 20,
+                                                              "exercise": { "type": "uphill walk", "order": 1, "distanceMin": 9999, "distanceMax": 9999 },
+                                                              "exercise": { "type": "uphill sprint", "order": 2, "distanceMin": .25, "distanceMax": .25 },
+                                                              "recovery": { "type": "walk/jog", "order": 3, "durationMin": 2, "durationMax": 4 },
+                                            "exercise": { "type": "trail run", "order": 4, "durationMin": 35, "durationMax": 35 }
+                                            
+                                ]
+                          },
+    },
+
+    "coolDown": { "reps": 1,
+                 "exercises": [ {"recovery": { "type": "stretch", "order": 1, "durationMin": 99999, "durationMax": 99999 }} ]
+    }
+}
