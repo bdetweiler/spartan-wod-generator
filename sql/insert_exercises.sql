@@ -1,687 +1,143 @@
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('arm curls',
-                 'strength', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 'https://www.youtube.com/watch?v=kwG2ipFRgfo',
-                 'arms',
-                 'biceps',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 1, -- EQ_WEIGHTS,
-                 1, -- EQ_KETTLE_BELLS,
-                 1, -- EQ_HEAVY_OBJECT,
-                 1, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('arm curls', 'strength', 'https://www.youtube.com/watch?v=kwG2ipFRgfo', 'arms', 'biceps', 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('back extension', 'strength', 'https://www.youtube.com/watch?v=Bw9YuQTTc58', 'back', 'back', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('back extension',
-                 'strength', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 'https://www.youtube.com/watch?v=Bw9YuQTTc58', 
-                 'back',
-                 'back',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('bear crawl', 'athleticism', 'https://www.youtube.com/watch?v=WMXbyYpZ9oY', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('bear crawl',
-                 'athleticism', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 'https://www.youtube.com/watch?v=WMXbyYpZ9oY',
-                 'full body',
-                 'full body',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('belly crawl', 'athleticism', 'https://www.youtube.com/watch?v=cLwS1xkOLas', 'upper body', 'upper body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('belly crawl',
-                 'athleticism', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 'https://www.youtube.com/watch?v=cLwS1xkOLas',
-                 'upper body',
-                 'upper body',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('bodyweight circuit', 'strength', '', 'full body', 'full body', 2, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('bodyweight squat', 'strength', 'https://www.youtube.com/watch?v=p3g4wAsu0R4', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('bodyweight circuit',
-                 'strength', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 '',
-                 'full body',
-                 'full body',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 1, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 1, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 1, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('box jump', 'strength', 'https://www.youtube.com/watch?v=hxldG9FX4j4', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('box jump burpee', 'athleticism', 'https://www.youtube.com/watch?v=kiOcwv7YE6c', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('bodyweight squat',
-                 'strength', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 '',
-                 'lower body',
-                 'legs',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 1, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('brazilian ab twist', 'strength', 'https://www.youtube.com/watch?v=iUk5T87cf34', 'core', 'abs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('burpee', 'athleticism', 'https://www.youtube.com/watch?v=JZQA08SlJnM', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('burpee pull-up', 'strength', 'https://www.youtube.com/watch?v=kAvZoa5iexA', 'full body', 'full body', 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('box jump',
-                 'strength', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 '',
-                 'lower body',
-                 'legs',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 1, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('chest pass', 'strength', 'https://www.youtube.com/watch?v=FUdcjZ0weic', 'upper body', 'chest', 2, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('box jump burpee',
-                 'athleticism', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 '',
-                 'full body',
-                 'full body',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 1, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('chore', 'active rest', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('crunch', 'strength', 'https://www.youtube.com/watch?v=Xyd_fa5zoEU', 'core', 'abs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('curl', 'strength', 'https://www.youtube.com/watch?v=oUqgPSZmhro', 'arms', 'biceps', 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('brazilian ab twist',
-                 'strength', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 'https://www.youtube.com/watch?v=iUk5T87cf34',
-                 'core',
-                 'abs',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('cycling', 'endurance', '', 'legs', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 1, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('dog walking', 'active rest', '', 'legs', 'legs', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('double leg butt kicks', 'warmup', 'https://www.youtube.com/watch?v=F5iYMAkGaY8', 'legs', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('drop push-up', 'strength', 'https://www.youtube.com/watch?v=y9aAhXt2wYk', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('burpee',
-                 'athleticism', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 '',
-                 'full body',
-                 'full body',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('dynamic warm up', 'warmup', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('easy jog', 'warmup', 'https://www.youtube.com/watch?v=BgZdwy1FO4Y', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('burpee pull-up',
-                 'strength', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 '',
-                 'full body',
-                 'full body',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('explosive broad jump', 'athleticism', 'https://www.youtube.com/watch?v=ko22JMOkzQQ', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('flutter kick', 'strength', 'https://www.youtube.com/watch?v=ANVdMDaYRts', 'core', 'abs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('chest pass',
-                 'strength', -- strength, athleticism, endurance, warmup, cooldown, mind
-                 'https://www.youtube.com/watch?v=FUdcjZ0weic',
-                 'upper body',
-                 'chest',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 1, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('glute kickback', 'athleticism', 'https://www.youtube.com/watch?v=h4439IQFAqI', 'lower body', 'glutes', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
 
-INSERT INTO EXERCISE(NAME,
-                     CATEGORY,
-                     DEMO_URL,
-                     GENERAL_MUSCLE_GROUP,
-                     TARGET_MUSCLE_GROUP,
-                     LOC_INDOORS,
-                     LOC_OUTDOORS,
-                     EQ_JUMP_ROPE,
-                     EQ_PULLUP_BAR,
-                     EQ_WEIGHTS,
-                     EQ_KETTLE_BELLS,
-                     EQ_HEAVY_OBJECT,
-                     EQ_TRX,
-                     EQ_MED_BALL,
-                     EQ_BOX,
-                     EQ_SQUAT_RACK,
-                     EQ_TREADMILL,
-                     EQ_TRACK,
-                     EQ_TRAIL,
-                     EQ_HILLS,
-                     EQ_POOL,
-                     EQ_BIKE,
-                     EQ_ROW_MACHINE)
-          VALUES('chore',
-                 'active rest', -- strength, athleticism, endurance, warmup, cooldown, mind, active rest
-                 '',
-                 'full body',
-                 'full body',
-                 1, -- LOC_INDOORS,
-                 1, -- LOC_OUTDOORS,
-                 0, -- EQ_JUMP_ROPE,
-                 0, -- EQ_PULLUP_BAR,
-                 0, -- EQ_WEIGHTS,
-                 0, -- EQ_KETTLE_BELLS,
-                 0, -- EQ_HEAVY_OBJECT,
-                 0, -- EQ_TRX,
-                 0, -- EQ_MED_BALL,
-                 0, -- EQ_BOX,
-                 0, -- EQ_SQUAT_RACK,
-                 0, -- EQ_TREADMILL,
-                 0, -- EQ_TRACK,
-                 0, -- EQ_TRAIL,
-                 0, -- EQ_HILLS,
-                 0, -- EQ_POOL,
-                 0, -- EQ_BIKE,
-                 0); -- EQ_ROW_MACHINE
-crunch
-curl
-cycle
-cycling
-dog walking
-double leg butt kicks
-drop push-up
-dynamic warm up
-easy jog
-explosive broad jump
-fast interval
-flutter kick
-glute kickback
-handstand hold
-hanging knee raise
-high intensity interval
-high knee
-hiking
-hill interval
-inverted pull-up
-isometric lunge hold
-isometric wiper
-jog
-jump rope
-jumping jack
-jumping lunge
-kettle bell 1-arm overhead farmer’s carry
-kettle bell swing
-laying leg raise
-long run
-mountain climber
-muscle-up
-pistol squat
-plank
-plyometric push-up
-power skip backward
-power skip explosive
-pull-up
-recover
-reverse bear crawl
-rope climb
-row
-run
-sandbag slam
-sandbag squat
-sandbag squat throw
-shuttle run
-side kick
-side plank
-side-to-side hop
-sit-up
-speed skater
-spiderman push-up
-squat jump
-star jump
-stretch
-swimming
-trail run
-tricep overhead extension
-uphill dash
-vertical jump
-walk
-walking lunge
-wide push-up
-yoga
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('handstand hold', 'strength', 'https://www.youtube.com/watch?v=h4439IQFAqI', 'upper body', 'shoulders', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('hanging knee raise', 'strength', 'https://www.youtube.com/watch?v=PGSKkNB1Oyk', 'core', 'abs', 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('high knee', 'warmup', 'https://www.youtube.com/watch?v=8opcQdC-V-U', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('hiking', 'active rest', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('hill interval', 'athleticism', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 1, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('inverted pull-up', 'strength', 'https://www.youtube.com/watch?v=lgsyUiB6occ', 'upper body', 'back', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('isometric lunge hold', 'strength', 'https://www.youtube.com/watch?v=u-bhL8zo570', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('isometric wiper', 'strength', 'https://www.youtube.com/watch?v=VxrSMH5vVWY', 'upper body', 'arms', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('jog', 'endurance', 'https://www.youtube.com/watch?v=VxrSMH5vVWY', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('jump rope', 'warmup', 'https://www.youtube.com/watch?v=GRStB06uhgE', 'full body', 'full body', 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('jumping jack', 'warmup', 'https://www.youtube.com/watch?v=c4DAnQ6DtF8', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('jumping lunge', 'athleticism', 'https://www.youtube.com/watch?v=Kw4QpPfX-cU', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('kettle bell 1-arm overhead farmer''s carry', 'strength', 'https://www.youtube.com/watch?v=uT1LV1eLcdM', 'upper body', 'upper body', 2, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('kettle bell swing', 'strength', 'https://www.youtube.com/watch?v=OopKTfLiz48', 'lower body', 'hip flexors', 2, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('laying leg raise', 'athleticism', 'https://www.youtube.com/watch?v=xqTh6NqbAtM', 'lower body', 'hip flexors', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('run', 'endurance', 'https://www.youtube.com/watch?v=wCVSv7UxB2E', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('mountain climber', 'endurance', 'https://www.youtube.com/watch?v=nmwgirgXLYM', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('muscle-up', 'strength', 'https://youtu.be/ZEDY9QNBKe4', 'upper body', 'upper body', 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('pistol squat', 'strength', 'https://www.youtube.com/watch?v=7NvOuty_Fnc', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('plank', 'strength', 'https://www.youtube.com/watch?v=pSHjTRCQxIw', 'core', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('plyometric push-up', 'strength', 'https://www.youtube.com/watch?v=mgkyTtQ0ODE', 'upper body', 'upper body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('power skip', 'warmup', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('pull-up', 'warmup', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'upper body', 'upper body', 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('recover', 'rest', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'full body', 'full body', 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('rope climb', 'rest', 'https://www.youtube.com/watch?v=AD0uO7JGdZU', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('row', 'endurance', '', 'full body', 'full body', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('sandbag/medicine ball slam', 'strength', 'https://www.youtube.com/watch?v=Y2wSD7spnxk', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('sandbag squat', 'strength', 'https://www.youtube.com/watch?v=U9yK6rHy40A', 'lower body', 'lower body', 2, 2, 0, 0, 2, 2, 2, 0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('sandbag squat throw', 'strength', 'https://www.youtube.com/watch?v=R-zLekvxzpg', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('shuttle run', 'strength', 'https://www.youtube.com/watch?v=Zcj_xdwLnNc', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('side kick', 'warmup', 'https://www.youtube.com/watch?v=MsmmbeXJ6Lw', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('side plank', 'strength', 'https://www.youtube.com/watch?v=6cRAFji80CQ', 'core', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('side-to-side hop', 'athleticism', 'https://www.youtube.com/watch?v=_AVX9cpPzks', 'core', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('sit-up', 'strength', 'https://www.youtube.com/watch?v=1fbU_MkV7NE', 'core', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('speed skater', 'athleticism', 'https://www.youtube.com/watch?v=EkESodXYDRM', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('spiderman push-up', 'strength', 'https://www.youtube.com/watch?v=fKBeHALPsSU', 'upper body', 'upper body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('squat jump', 'strength', 'https://www.youtube.com/watch?v=DeTBwEL4m7s', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('star jump', 'athleticism', 'https://www.youtube.com/watch?v=h6wu4_LOhyU', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('stretch', 'cooldown', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('swimming', 'endurance', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('trail run', 'endurance', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('tricep overhead extension', 'strength', 'https://www.youtube.com/watch?v=YbX7Wd8jQ-Q', 'upper body', 'triceps', 2, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('uphill dash', 'athleticism', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('vertical jump', 'athleticism', 'https://www.youtube.com/watch?v=K9zzVwMyD1g', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('walk', 'active rest', '', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('walking lunge', 'strength', 'https://www.youtube.com/watch?v=L8fvypPrzzs', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('wide push-up', 'strength', 'https://www.youtube.com/watch?v=B78GwfC-87Y', 'upper body', 'chest', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
+
+INSERT INTO EXERCISE(NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES('yoga', 'active recovery', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); 
