@@ -16,10 +16,509 @@
   <body>
 
     <section>
-      <h1 id="wod-name">WOD Name</h1> 
+      <h1 id="wod-name">Create/Edit WOD</h1> 
+
+      <select id="workouts">
+        <option value="new" selected="selected">-- Add New --</option>
+      </select>
+      <br />
+
+      <label>WOD Name:</label>
+      <input type="text" id="wod_name" />
+      <br />
+
+      <label>WOD Category:</label>
+      <input type="radio" name="wod_category" value="athleticism" checked="checked">Athleticism</input>
+      <input type="radio" name="wod_category" value="endurance">Endurance</input>
+      <input type="radio" name="wod_category" value="strength">Strength</input>
+      <br />
+
+      <label>Quote:</label>
+      <input type="text" id="quote" />
+      <br />
+
+      <label>Quote By:</label>
+      <input type="text" id="quote_by" />
+      <br />
+
+      <label>WOD Description:</label>
+      <input type="text" id="wod_description" />
+      <br />
+
+      <label>Special Day:</label>
+      <input type="text" id="special_day" />
+      <br />
+
+      <button id="add_wod" name="add_wod">Add WOD</button>
+      <br />
+      <button id="close_db" name="close_db">Close DB</button>
+    </section>
+
+    <section>
+      <h1 id="wod-name">Create/Edit Sets</h1> 
+
+      <table>
+        <tr>
+          <td id="warmup">
+
+            <h2>Warmup</h2>
+
+            <label>Reps Min</label>
+            <input type="text" name="warmup_reps_min" />
+            <br />
+            <label>Reps Max</label>
+            <input type="text" name="warmup_reps_max" />
+            <br />
+            <label>Duration Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Duration Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Distance Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Distance Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Rest Min</label>
+            <input type="text" name="warmup_rest_min" />
+            <br />
+            <label>Rest Max</label>
+            <input type="text" name="warmup_rest_max" />
+            <br />
+
+            <div style="border-color: black; border: 1px;">
+              <select id="warmup_exercise">
+                <option id="0">-- Select an exercise --</option>
+              </select>
+              <br />
+
+              <label>Direction</label>
+              <select id="exercise_direction" name="exercise_direction">
+                <option id="">-- Select a direction --</option>
+                <option id="forward">Forward</option>
+                <option id="backward">Backward</option>
+                <option id="left">Left</option>
+                <option id="right">Right</option>
+                <option id="side">Side</option>
+              </select>
+              <br />
+
+              <label>Reps Min</label>
+              <input type="text" name="warmup_reps_min" />
+              <br />
+              <label>Reps Max</label>
+              <input type="text" name="warmup_reps_max" />
+              <br />
+              <label>Duration Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Duration Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Distance Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Distance Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Rest Min</label>
+              <input type="text" name="warmup_rest_min" />
+              <br />
+              <label>Rest Max</label>
+              <input type="text" name="warmup_rest_max" />
+              <br />
+            </div>
+
+            <button name="add_warmup_exercise">Add Set</button>
+            <br />
+            <button name="add_warmup_set">Save Warmup</button>
+          </td>
+          <td id="sprint">
+
+            <h2>Sprint</h2>
+
+            <label>Reps Min</label>
+            <input type="text" name="warmup_reps_min" />
+            <br />
+            <label>Reps Max</label>
+            <input type="text" name="warmup_reps_max" />
+            <br />
+            <label>Duration Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Duration Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Distance Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Distance Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Rest Min</label>
+            <input type="text" name="warmup_rest_min" />
+            <br />
+            <label>Rest Max</label>
+            <input type="text" name="warmup_rest_max" />
+            <br />
+
+            <div style="border-color: black; border: 1px;">
+              <select id="sprint_exercise">
+                <option id="0">-- Select an exercise --</option>
+              </select>
+              <br />
+
+              <label>Direction</label>
+              <select id="exercise_direction" name="exercise_direction">
+                <option id="">-- Select a direction --</option>
+                <option id="forward">Forward</option>
+                <option id="backward">Backward</option>
+                <option id="left">Left</option>
+                <option id="right">Right</option>
+                <option id="side">Side</option>
+              </select>
+              <br />
+
+              <label>Reps Min</label>
+              <input type="text" name="warmup_reps_min" />
+              <br />
+              <label>Reps Max</label>
+              <input type="text" name="warmup_reps_max" />
+              <br />
+              <label>Duration Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Duration Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Distance Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Distance Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Rest Min</label>
+              <input type="text" name="warmup_rest_min" />
+              <br />
+              <label>Rest Max</label>
+              <input type="text" name="warmup_rest_max" />
+              <br />
+            </div>
+
+            <button name="add_warmup_exercise">Add Set</button>
+            <br />
+            <button name="add_sprint_set">Save Sprint</button>
+          </td>
+          <td id="super">
+
+            <h2>Super</h2>
+
+            <label>Reps Min</label>
+            <input type="text" name="warmup_reps_min" />
+            <br />
+            <label>Reps Max</label>
+            <input type="text" name="warmup_reps_max" />
+            <br />
+            <label>Duration Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Duration Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Distance Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Distance Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Rest Min</label>
+            <input type="text" name="warmup_rest_min" />
+            <br />
+            <label>Rest Max</label>
+            <input type="text" name="warmup_rest_max" />
+            <br />
+
+            <div style="border-color: black; border: 1px;">
+              <select id="super_exercise">
+                <option id="0">-- Select an exercise --</option>
+              </select>
+              <br />
+
+              <label>Direction</label>
+              <select id="exercise_direction" name="exercise_direction">
+                <option id="">-- Select a direction --</option>
+                <option id="forward">Forward</option>
+                <option id="backward">Backward</option>
+                <option id="left">Left</option>
+                <option id="right">Right</option>
+                <option id="side">Side</option>
+              </select>
+              <br />
+
+              <label>Reps Min</label>
+              <input type="text" name="warmup_reps_min" />
+              <br />
+              <label>Reps Max</label>
+              <input type="text" name="warmup_reps_max" />
+              <br />
+              <label>Duration Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Duration Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Distance Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Distance Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Rest Min</label>
+              <input type="text" name="warmup_rest_min" />
+              <br />
+              <label>Rest Max</label>
+              <input type="text" name="warmup_rest_max" />
+              <br />
+            </div>
+
+            <button name="add_warmup_exercise">Add Set</button>
+            <br />
+            <button name="add_super_set">Save Super</button>
+          </td>
+          <td id="beast">
+
+            <h2>Beast</h2>
+
+            <label>Reps Min</label>
+            <input type="text" name="warmup_reps_min" />
+            <br />
+            <label>Reps Max</label>
+            <input type="text" name="warmup_reps_max" />
+            <br />
+            <label>Duration Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Duration Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Distance Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Distance Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Rest Min</label>
+            <input type="text" name="warmup_rest_min" />
+            <br />
+            <label>Rest Max</label>
+            <input type="text" name="warmup_rest_max" />
+            <br />
+
+            <div style="border-color: black; border: 1px;">
+              <select id="beast_exercise">
+                <option id="0">-- Select an exercise --</option>
+              </select>
+              <br />
+
+              <label>Direction</label>
+              <select id="exercise_direction" name="exercise_direction">
+                <option id="">-- Select a direction --</option>
+                <option id="forward">Forward</option>
+                <option id="backward">Backward</option>
+                <option id="left">Left</option>
+                <option id="right">Right</option>
+                <option id="side">Side</option>
+              </select>
+              <br />
+
+              <label>Reps Min</label>
+              <input type="text" name="warmup_reps_min" />
+              <br />
+              <label>Reps Max</label>
+              <input type="text" name="warmup_reps_max" />
+              <br />
+              <label>Duration Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Duration Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Distance Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Distance Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Rest Min</label>
+              <input type="text" name="warmup_rest_min" />
+              <br />
+              <label>Rest Max</label>
+              <input type="text" name="warmup_rest_max" />
+              <br />
+            </div>
+
+            <button name="add_warmup_exercise">Add Set</button>
+            <br />
+            <button name="add_beast_set">Save Beast</button>
+          </td>
+          <td id="trifecta">
+
+            <h2>Trifecta</h2>
+
+            <label>Reps Min</label>
+            <input type="text" name="warmup_reps_min" />
+            <br />
+            <label>Reps Max</label>
+            <input type="text" name="warmup_reps_max" />
+            <br />
+            <label>Duration Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Duration Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Distance Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Distance Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Rest Min</label>
+            <input type="text" name="warmup_rest_min" />
+            <br />
+            <label>Rest Max</label>
+            <input type="text" name="warmup_rest_max" />
+            <br />
+
+            <div style="border-color: black; border: 1px;">
+              <select id="trifecta_exercise">
+                <option id="0">-- Select an exercise --</option>
+              </select>
+              <br />
+
+              <label>Direction</label>
+              <select id="exercise_direction" name="exercise_direction">
+                <option id="">-- Select a direction --</option>
+                <option id="forward">Forward</option>
+                <option id="backward">Backward</option>
+                <option id="left">Left</option>
+                <option id="right">Right</option>
+                <option id="side">Side</option>
+              </select>
+              <br />
+
+              <label>Reps Min</label>
+              <input type="text" name="warmup_reps_min" />
+              <br />
+              <label>Reps Max</label>
+              <input type="text" name="warmup_reps_max" />
+              <br />
+              <label>Duration Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Duration Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Distance Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Distance Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Rest Min</label>
+              <input type="text" name="warmup_rest_min" />
+              <br />
+              <label>Rest Max</label>
+              <input type="text" name="warmup_rest_max" />
+              <br />
+            </div>
+
+            <button name="add_warmup_exercise">Add Set</button>
+            <br />
+            <button name="add_trifecta_set">Save Trifecta</button>
+          </td>
+          <td id="cooldown">
+
+            <h2>Cooldown</h2>
+
+            <label>Reps Min</label>
+            <input type="text" name="warmup_reps_min" />
+            <br />
+            <label>Reps Max</label>
+            <input type="text" name="warmup_reps_max" />
+            <br />
+            <label>Duration Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Duration Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Distance Min</label>
+            <input type="text" name="warmup_duration_min" />
+            <br />
+            <label>Distance Max</label>
+            <input type="text" name="warmup_duration_max" />
+            <br />
+            <label>Rest Min</label>
+            <input type="text" name="warmup_rest_min" />
+            <br />
+            <label>Rest Max</label>
+            <input type="text" name="warmup_rest_max" />
+            <br />
+
+            <div style="border-color: black; border: 1px;">
+              <select id="cooldown_exercise">
+                <option id="0">-- Select an exercise --</option>
+              </select>
+              <br />
+
+              <label>Direction</label>
+              <select id="exercise_direction" name="exercise_direction">
+                <option id="">-- Select a direction --</option>
+                <option id="forward">Forward</option>
+                <option id="backward">Backward</option>
+                <option id="left">Left</option>
+                <option id="right">Right</option>
+                <option id="side">Side</option>
+              </select>
+              <br />
+
+              <label>Reps Min</label>
+              <input type="text" name="warmup_reps_min" />
+              <br />
+              <label>Reps Max</label>
+              <input type="text" name="warmup_reps_max" />
+              <br />
+              <label>Duration Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Duration Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Distance Min</label>
+              <input type="text" name="warmup_duration_min" />
+              <br />
+              <label>Distance Max</label>
+              <input type="text" name="warmup_duration_max" />
+              <br />
+              <label>Rest Min</label>
+              <input type="text" name="warmup_rest_min" />
+              <br />
+              <label>Rest Max</label>
+              <input type="text" name="warmup_rest_max" />
+              <br />
+            </div>
+
+            <button name="add_warmup_exercise">Add Set</button>
+            <br />
+            <button name="add_cooldown_set">Save Cooldown</button>
+          </td>
+        </tr>
+      </table>
+      <br />
     </section>
 
   </body>
 </html>
-    
-    
