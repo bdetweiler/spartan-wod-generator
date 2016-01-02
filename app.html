@@ -51,7 +51,6 @@
 
       <button id="add_wod" name="add_wod">Add WOD</button>
       <br />
-      <button id="close_db" name="close_db">Close DB</button>
     </section>
 
     <section>
@@ -106,32 +105,33 @@
               <br />
 
               <label>Reps Min</label>
-              <input type="text" name="warmup_reps_min" />
+              <input type="text" name="warmup_exercise_reps_min" />
               <br />
               <label>Reps Max</label>
-              <input type="text" name="warmup_reps_max" />
+              <input type="text" name="warmup_exercise_reps_max" />
               <br />
               <label>Duration Min</label>
-              <input type="text" name="warmup_duration_min" />
+              <input type="text" name="warmup_exercise_duration_min" />
               <br />
               <label>Duration Max</label>
-              <input type="text" name="warmup_duration_max" />
+              <input type="text" name="warmup_exercise_duration_max" />
               <br />
               <label>Distance Min</label>
-              <input type="text" name="warmup_duration_min" />
+              <input type="text" name="warmup_exercise_duration_min" />
               <br />
               <label>Distance Max</label>
-              <input type="text" name="warmup_duration_max" />
+              <input type="text" name="warmup_exercise_duration_max" />
               <br />
               <label>Rest Min</label>
-              <input type="text" name="warmup_rest_min" />
+              <input type="text" name="warmup_exercise_rest_min" />
               <br />
               <label>Rest Max</label>
-              <input type="text" name="warmup_rest_max" />
+              <input type="text" name="warmup_exercise_rest_max" />
               <br />
             </div>
 
             <button name="add_warmup_exercise">Add Set</button>
+            <br />
             <br />
             <button name="add_warmup_set">Save Warmup</button>
           </td>
@@ -140,28 +140,33 @@
             <h2>Sprint</h2>
 
             <label>Reps Min</label>
-            <input type="text" name="warmup_reps_min" />
+            <input type="text" name="sprint_reps_min" />
             <br />
             <label>Reps Max</label>
-            <input type="text" name="warmup_reps_max" />
+            <input type="text" name="sprint_reps_max" />
             <br />
             <label>Duration Min</label>
-            <input type="text" name="warmup_duration_min" />
+            <input type="text" name="sprint_duration_min" />
             <br />
             <label>Duration Max</label>
-            <input type="text" name="warmup_duration_max" />
+            <input type="text" name="sprint_duration_max" />
             <br />
             <label>Distance Min</label>
-            <input type="text" name="warmup_duration_min" />
+            <input type="text" name="sprint_duration_min" />
             <br />
             <label>Distance Max</label>
-            <input type="text" name="warmup_duration_max" />
+            <input type="text" name="sprint_duration_max" />
             <br />
             <label>Rest Min</label>
-            <input type="text" name="warmup_rest_min" />
+            <input type="text" name="sprint_rest_min" />
             <br />
             <label>Rest Max</label>
-            <input type="text" name="warmup_rest_max" />
+            <input type="text" name="sprint_rest_max" />
+
+            <br />
+            <br />
+            <button id="copy_sprint_set">Copy Set --&gt;</button>
+            <br />
             <br />
 
             <div style="border-color: black; border: 1px;">
@@ -182,32 +187,36 @@
               <br />
 
               <label>Reps Min</label>
-              <input type="text" name="warmup_reps_min" />
+              <input type="text" name="sprint_exercise_reps_min" />
               <br />
               <label>Reps Max</label>
-              <input type="text" name="warmup_reps_max" />
+              <input type="text" name="sprint_exercise_reps_max" />
               <br />
               <label>Duration Min</label>
-              <input type="text" name="warmup_duration_min" />
+              <input type="text" name="sprint_exercise_duration_min" />
               <br />
               <label>Duration Max</label>
-              <input type="text" name="warmup_duration_max" />
+              <input type="text" name="sprint_exercise_duration_max" />
               <br />
               <label>Distance Min</label>
-              <input type="text" name="warmup_duration_min" />
+              <input type="text" name="sprint_exercise_duration_min" />
               <br />
               <label>Distance Max</label>
-              <input type="text" name="warmup_duration_max" />
+              <input type="text" name="sprint_exercise_duration_max" />
               <br />
               <label>Rest Min</label>
-              <input type="text" name="warmup_rest_min" />
+              <input type="text" name="sprint_exercise_rest_min" />
               <br />
               <label>Rest Max</label>
-              <input type="text" name="warmup_rest_max" />
+              <input type="text" name="sprint_exercise_rest_max" />
               <br />
             </div>
 
-            <button name="add_warmup_exercise">Add Set</button>
+            <button name="add_sprint_exercise">Add Set</button>
+            <br />
+            <br />
+            <button name="copy_sprint_exercise">Copy Exercise Set --&gt;</button>
+            <br />
             <br />
             <button name="add_sprint_set">Save Sprint</button>
           </td>
@@ -520,5 +529,8 @@
       <br />
     </section>
 
+    <button id="export_db" name="export_db">Export DB</button>
+    <br /><br />
+    <button id="close_db" name="close_db">Close DB</button>
   </body>
 </html>

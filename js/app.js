@@ -46,8 +46,16 @@ $(document).ready(function() {
     addWOD(db);
   });
 
+  $('#export_db').click(function() {
+    exportdb(db);
+  });
+
   $('#close_db').click(function() {
     db.close();
+  });
+
+  $('#workouts').change(function() {
+    populateWorkout(db);
   });
 
   populateWODs(db);
@@ -133,6 +141,7 @@ function addWOD(db) {
 
   populateWODs(db);
 
+  // Select Workout from the dropdown
   $('#workouts > option[value="' + spartanWODId + '"]').attr('selected', 'selected');
 
 }
@@ -171,6 +180,68 @@ function populateWODs(db) {
         .attr("value", selectValues[i]['id'])
         .text(selectValues[i]['name'])); 
   });
+}
+
+function populateWorkout(db) {
+
+  var spartanWODId = $('#workouts').find(':selected').attr('value');
+  var wodName = $('#wod_name').val('');
+  var wodQuote = $('#quote').val('');
+  var wodQuoteBy = $('#quote_by').val('');
+  var wodDescription = $('#wod_description').val('');
+  var wodSpecialDay = $('#special_day').val('');
+
+  sqlstr = "SELECT * FROM SPARTAN_WOD WHERE SPARTAN_WOD_ID = " + spartanWODId + ";";
+  var rs = db.exec(sqlstr);
+
+  console.dir(rs);
+
+  if (rs.length == 0) {
+    return;
+  }
+
+  var spartanWODId = rs[0]['values'][0][0];
+  var name = rs[0]['values'][0][1];
+
+  // category
+  var category = rs[0]['values'][0][2];
+
+  var quote = rs[0]['values'][0][3];
+  var quoteBy = rs[0]['values'][0][4];
+  var description = rs[0]['values'][0][5];
+  var specialDay = rs[0]['values'][0][6];
+ 
+  $('#wod_name').val(name);
+  $("input[value='" + category + "']").prop('checked', true);
+
+  $('#quote').val(quote);
+  $('#quote_by').val(quoteBy);
+  $('#wod_description').val(description);
+  $('#special_day').val(specialDay);
+}
+
+function exportdb(db) {
+  /* Uint8Array */
+  var binArray = db.export();
+
+  var saveData = (function () {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+
+    return function (data, fileName) {
+      var blob = new Blob([data], {type: "application/octet-stream"});
+      var url = window.URL.createObjectURL(blob);
+      a.href = url;
+      a.download = fileName;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    };
+
+    
+  }());
+  
+  saveData(binArray, "spartan_wod.db");
 }
 
 function initdb(db) {
