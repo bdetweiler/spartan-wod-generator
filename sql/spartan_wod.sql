@@ -11,7 +11,8 @@ CREATE TABLE SET_OF_SETS(SET_OF_SETS_ID INTEGER PRIMARY KEY ASC,
                          DURATION_MAX FLOAT,
                          DIST_MIN FLOAT,
                          DIST_MAX FLOAT,
-                         TYPE VARCHAR);
+                         TYPE VARCHAR,
+                         CALORIES FLOAT);
 
 CREATE TABLE SPARTAN_WOD(SPARTAN_WOD_ID INTEGER PRIMARY KEY ASC,
                          NAME VARCHAR,
@@ -57,7 +58,9 @@ CREATE TABLE EXERCISE(EXERCISE_ID INTEGER PRIMARY KEY ASC,
                       EQ_POOL INTEGER,
                       EQ_BIKE INTEGER,
                       EQ_ROW_MACHINE INTEGER,
-                      EQ_ROPE INTEGER);
+                      EQ_ROPE INTEGER,
+                      CALORIES FLOAT,
+                      CALORIES_MEASURED_IN VARCHAR);
 
 CREATE TABLE EXERCISE_SET(EXERCISE_SET_ID INTEGER PRIMARY KEY ASC,
                           DIRECTION VARCHAR,
@@ -71,15 +74,12 @@ CREATE TABLE EXERCISE_SET(EXERCISE_SET_ID INTEGER PRIMARY KEY ASC,
                           DIST_MAX FLOAT,
                           REST_DURATION_MIN INTEGER,
                           REST_DURATION_MAX INTEGER,
-
+                          CALORIES FLOAT,
                           FOREIGN KEY(EXERCISE_ID) REFERENCES EXERCISE(EXERCISE_ID));
 
 CREATE TABLE EXERCISE_SET_JOIN(EXERCISE_SET_JOIN_ID INTEGER PRIMARY KEY ASC,
                                SET_OF_SETS_ID INTEGER,
                                EXERCISE_SET_ID INTEGER,
                                SET_ORDER INTEGER,
-
                                FOREIGN KEY(SET_OF_SETS_ID) REFERENCES SET_OF_SETS(SET_OF_SETS_ID),
                                FOREIGN KEY(EXERCISE_SET_ID) REFERENCES EXERCISE_SET(EXERCISE_SET_ID));
-
-  --INSERT INTO employees VALUES (1,'JOHNSON','ADMIN',6,'1990-12-17',18000,NULL,4);

@@ -27,12 +27,7 @@ $(document).ready(function() {
 
   initdb(db);
 
-  sqlstr = "SELECT * FROM EXERCISE;";
-
-  // Prepare an sql statement
-  var rs = db.exec(sqlstr);
-  
-  console.dir(rs);
+  populateExercises(db)
   
   // db.close();
   //stmt.free();
@@ -58,9 +53,527 @@ $(document).ready(function() {
     populateWorkout(db);
   });
 
+  $('#copy_sprint_set').click(function() {
+    copySprintSet();
+  });
+
+  $('#copy_sprint_exercise').click(function() {
+    copySprintExerciseSet();
+  });
+
+  $('#all_sets').click(function() {
+    toggleAllSets();
+  });
+
+  $('#exercise').change(function() {
+    var units = $('#exercise > option:selected').attr('units');
+
+    if (units === 'minutes') {
+      $('#exercise_reps_min').prop('disabled', true);
+      $('#exercise_reps_min').val('');
+      $('#exercise_reps_max').prop('disabled', true);
+      $('#exercise_reps_max').val('');
+
+      $('#exercise_duration_min').prop('disabled', false);
+      $('#exercise_duration_max').prop('disabled', false);
+
+      $('#exercise_distance_min').prop('disabled', true);
+      $('#exercise_distance_min').val('');
+      $('#exercise_distance_max').prop('disabled', true);
+      $('#exercise_distance_max').val('');
+    } else if (units === 'reps') {
+      $('#exercise_reps_min').prop('disabled', false);
+      $('#exercise_reps_max').prop('disabled', false);
+
+      $('#exercise_duration_min').prop('disabled', true);
+      $('#exercise_duration_min').val('');
+      $('#exercise_duration_max').prop('disabled', true);
+      $('#exercise_duration_max').val('');
+
+      $('#exercise_distance_min').prop('disabled', true);
+      $('#exercise_distance_min').val('');
+      $('#exercise_distance_max').prop('disabled', true);
+      $('#exercise_distance_max').val('');
+    } else if (units === 'miles') {
+      $('#exercise_reps_min').prop('disabled', true);
+      $('#exercise_reps_min').val('');
+      $('#exercise_reps_max').prop('disabled', true);
+      $('#exercise_reps_max').val('');
+
+      $('#exercise_duration_min').prop('disabled', true);
+      $('#exercise_duration_min').val('');
+      $('#exercise_duration_max').prop('disabled', true);
+      $('#exercise_duration_max').val('');
+
+      $('#exercise_distance_min').prop('disabled', false);
+      $('#exercise_distance_max').prop('disabled', false);
+    }
+
+  });
+
+  $('#add_set').click(function() {
+    insertSet(db);
+  });
+
+  
   populateWODs(db);
 
 });
+
+function populateExercises(db) {
+  sqlstr = "SELECT EXERCISE_ID, NAME, CALORIES, CALORIES_MEASURED_IN FROM EXERCISE;";
+
+  // Prepare an sql statement
+  var rs = db.exec(sqlstr);
+  console.dir(rs[0]['values']);
+  for (i = 0; i < rs[0]['values'].length; ++i) {
+    // var exerciseId = 
+
+    $('#exercise')
+        .append($("<option></option>")
+        .attr("value", rs[0]['values'][i][0])
+        .attr("calories", rs[0]['values'][i][2])
+        .attr("units", rs[0]['values'][i][3])
+        .text(rs[0]['values'][i][1])); 
+  }
+}
+
+function insertSet(db) {
+  var exerciseSetId = $('#sets > option:selected').attr('id'); 
+
+  var exerciseId = $('#exercise > option:selected').val(); 
+  var exerciseCalories = $('#exercise > option:selected').attr('calories'); 
+  var exerciseUnits = $('#exercise > option:selected').attr('units'); 
+  var exerciseDirection = $('#exercise_direction > option:selected').attr('id'); 
+
+  var repsMin = parseFloat($('#exercise_reps_min').val());
+  var repsMax = parseFloat($('#exercise_reps_max').val());
+
+  var durationMin = parseFloat($('#exercise_duration_min').val());
+  var durationMax = parseFloat($('#exercise_duration_max').val());
+
+  var distanceMin = parseFloat($('#exercise_distance_min').val());
+  var distanceMax = parseFloat($('#exercise_distance_max').val());
+
+  var restMin = parseFloat($('#exercise_rest_min').val());
+  var restMax = parseFloat($('#exercise_rest_max').val());
+
+  if (exerciseUnits === 'reps') {
+    durationMin = 'null';
+    durationMax = 'null';
+    distanceMin = 'null';
+    distanceMax = 'null';
+  } else if (exerciseUnits === 'distance') {
+    durationMin = 'null';
+    durationMax = 'null';
+    repsMin = 'null';
+    repsMax = 'null';
+  } else if (exerciseUnits === 'duration') {
+    distanceMin = 'null';
+    distanceMax = 'null';
+    repsMin = 'null';
+    repsMax = 'null';
+  }
+
+  if (isNaN(repsMin)) {
+    repsMin = 'null';
+  }
+  if (isNaN(repsMax)) {
+    repsMax = 'null';
+  }
+
+  if (isNaN(durationMin)) {
+    durationMin = 'null';
+  }
+  if (isNaN(durationMax)) {
+    durationMax = 'null';
+  }
+
+  if (isNaN(distanceMin)) {
+    distanceMin = 'null';
+  }
+  if (isNaN(distanceMax)) {
+    distanceMax = 'null';
+  }
+
+
+  if (isNaN(restMin)) { 
+    restMin = 'null';
+  }
+
+  if (isNaN(restMax)){
+    restMax = 'null';
+  }
+
+  var warmupSet = $('#warmup_set').prop('checked');
+  var sprintSet = $('#sprint_set').prop('checked');
+  var superSet = $('#super_set').prop('checked');
+  var beastSet = $('#beast_set').prop('checked');
+  var trifectaSet = $('#trifecta_set').prop('checked');
+  var cooldownSet = $('#cooldown_set').prop('checked');
+
+  var setCalories = 0;
+
+  if (exerciseUnits === 'reps') {
+    var repsAvg = ((repsMin + repsMax) / 2);
+    console.log(repsAvg);
+    console.log(exerciseCalories);
+    setCalories = repsAvg * exerciseCalories;
+    console.log(setCalories);
+  } else if (exerciseUnits === 'minutes') {
+    setCalories = ((durationMin + durationMax) / 2) * exerciseCalories;
+  } else if (exerciseUnits === 'miles') {
+    setCalories = ((distanceMin + distanceMax) / 2) * exerciseCalories;
+  }
+
+  //             0,         1,         2,        3,        4,           5 
+  var setTypeArr = [warmupSet, sprintSet, superSet, beastSet, trifectaSet, cooldownSet];
+
+  for (i = 0; i < setTypeArr.length; ++i) {
+    
+    // If it's not one of these, skip insert/update
+    if (!setTypeArr[i]) {
+      continue;
+    }
+
+    var setType = '';
+    if (i == 0) {
+      setType = 'warmup';
+    } else if (i == 1) {
+      setType = 'sprint';
+    } else if (i == 2) {
+      setType = 'super';
+    } else if (i == 3) {
+      setType = 'beast';
+    } else if (i == 4) {
+      setType = 'trifecta';
+    } else if (i == 5) {
+      setType = 'cooldown';
+    }
+
+    console.log(setType);
+    var sqlstr = "";
+    if (exerciseSetId === 'new') {
+    
+      sqlstr = "SELECT MAX(EXERCISE_SET_ID) FROM EXERCISE_SET;";
+      var rs = db.exec(sqlstr);
+    
+      var exerciseSetId = 1;
+
+      if (rs[0]['values'][0][0] != null) {
+        exerciseSetId = rs[0]['values'][0][0];
+        exerciseSetId++;
+      }
+
+
+      // insert WOD
+      sqlstr = "INSERT INTO EXERCISE_SET(EXERCISE_SET_ID, "
+             + "                         DIRECTION, "
+             + "                         EXERCISE_ID, "
+             + "                         TYPE, "
+             + "                         REPS_MIN, "
+             + "                         REPS_MAX, "
+             + "                         DURATION_MIN, "
+             + "                         DURATION_MAX, "
+             + "                         DIST_MIN, "
+             + "                         DIST_MAX, "
+             + "                         REST_DURATION_MIN, "
+             + "                         REST_DURATION_MAX, "
+             + "                         CALORIES) "
+             + "                  VALUES(" + exerciseSetId + ", "
+             + "                         '" + exerciseDirection + "', "
+             + "                         " + exerciseId + ", "
+             + "                         '" + setType + "', "
+             + "                         " + repsMin + ", "
+             + "                         " + repsMax + ", "
+             + "                         " + durationMin + ", "
+             + "                         " + durationMax + ", "
+             + "                         " + distanceMin + ", "
+             + "                         " + distanceMax + ", "
+             + "                         " + restMin + ", "
+             + "                         " + restMax + ", "
+             + "                         " + setCalories + "); "
+
+      exerciseSetId = 'new';
+    } else {
+      // update
+      sqlstr = "UPDATE  EXERCISE_SET"
+             + "   SET  DIRECTION = '" + exerciseDirection + "', "
+             + "        EXERCISE_ID = " + exerciseId + ", "
+             + "        TYPE = '" + setType + "', "
+             + "        REPS_MIN = " + repsMin + ", "
+             + "        REPS_MAX = " + repsMax + ", "
+             + "        DURATION_MIN = " + durationMin + ", "
+             + "        DURATION_MAX = " + durationMax + ", "
+             + "        DIST_MIN = " + distanceMin + ", " 
+             + "        DIST_MAX = " + distanceMax + ", "
+             + "        REST_DURATION_MIN = " + restMin + ", "
+             + "        REST_DURATION_MAX = " + restMax + ", "
+             + "        CALORIES = " + setCalories + " "
+             + " WHERE EXERCISE_SET_ID = " + exerciseSetId + "; "
+    }
+
+    console.log(sqlstr);
+    db.exec(sqlstr);
+
+  }
+
+
+  
+  sqlstr = "SELECT * FROM EXERCISE_SET;"
+
+  var rs = db.exec(sqlstr);
+  console.dir(rs);
+  populateSets(db);
+
+  // Select Workout from the dropdown
+  // $('#workouts > option[value="' + spartanWODId + '"]').attr('selected', 'selected');
+
+}
+
+function populateSets(db) {
+
+
+
+  $('#sets').empty();
+  $('#sets')
+      .append($("<option></option>"))
+      .attr("value", "new")
+      .attr("id", "new")
+      .text("-- Add new --"); 
+
+
+  $('#warmup_sets').empty();
+  $('#warmup_sets')
+      .append($("<option></option>"))
+      .attr("value", "")
+      .attr("id", "")
+      .text("-- Select a set --"); 
+
+  $('#sprint_sets').empty();
+  $('#sprint_sets')
+      .append($("<option></option>"))
+      .attr("value", "")
+      .attr("id", "")
+      .text("-- Select a set --"); 
+
+  $('#super_sets').empty();
+  $('#super_sets')
+      .append($("<option></option>"))
+      .attr("value", "")
+      .attr("id", "")
+      .text("-- Select a set --"); 
+
+  $('#beast_sets').empty();
+  $('#beast_sets')
+      .append($("<option></option>"))
+      .attr("value", "")
+      .attr("id", "")
+      .text("-- Select a set --"); 
+
+  $('#trifecta_sets').empty();
+  $('#trifecta_sets')
+      .append($("<option></option>"))
+      .attr("value", "")
+      .attr("id", "")
+      .text("-- Select a set --"); 
+
+  $('#cooldown_sets').empty();
+  $('#cooldown_sets')
+      .append($("<option></option>"))
+      .attr("value", "")
+      .attr("id", "")
+      .text("-- Select a set --"); 
+
+  // get all sets
+  sqlstr = "SELECT es.EXERCISE_SET_ID,"
+         + "       es.REPS_MIN, "
+         + "       es.REPS_MAX, "
+         + "       es.DURATION_MIN, "
+         + "       es.DURATION_MAX, "
+         + "       es.DIST_MIN, "
+         + "       es.DIST_MAX, "
+         + "       es.REST_DURATION_MIN, "
+         + "       es.REST_DURATION_MAX, "
+         + "       e.NAME,"
+         + "       es.TYPE"
+         + "  FROM EXERCISE_SET es,"
+         + "       EXERCISE e"
+         + " WHERE es.EXERCISE_ID = e.EXERCISE_ID;";
+
+  // Prepare an sql statement
+  var rs = db.exec(sqlstr);
+  console.dir(rs[0]['values']);
+  for (i = 0; i < rs[0]['values'].length; ++i) {
+    // var exerciseId = 
+    
+    var setDesc = rs[0]['values'][i][9] + " [";
+
+    console.log(rs[0]['values'][i][1]);
+
+    if (rs[0]['values'][i][1] != null) {
+      setDesc += rs[0]['values'][i][1] + "/" + rs[0]['values'][i][2] + "rep ";
+    }
+
+    if (rs[0]['values'][i][3] != null) {
+      setDesc += rs[0]['values'][i][3] + "/" + rs[0]['values'][i][4] + "min ";
+    }
+
+    if (rs[0]['values'][i][5] != null) {
+      setDesc += rs[0]['values'][i][5] + "/" + rs[0]['values'][i][6] + "mi ";
+    }
+
+    if (rs[0]['values'][i][7] != null) {
+      setDesc += rs[0]['values'][i][7] + "/" + rs[0]['values'][i][8] + "rst";
+    }
+
+    setDesc += "]";
+
+    console.log(setDesc);
+
+    $('#sets')
+        .append($("<option></option>"))
+        .attr("value", rs[0]['values'][i][0])
+        .attr("id", rs[0]['values'][i][0])
+        .text(setDesc); 
+
+    var setType = rs[0]['values'][i][10];
+    $('#' + setType + '_sets')
+        .append($("<option></option>"))
+        .attr("value", rs[0]['values'][i][0])
+        .attr("id", rs[0]['values'][i][0])
+        .text(setDesc); 
+  }
+}
+
+function toggleAllSets() {
+
+  if ($('#all_sets').text() == "all") {
+    $('#all_sets').text('none');
+    $('#sprint_set').prop('checked', true);
+    $('#super_set').prop('checked', true);
+    $('#beast_set').prop('checked', true);
+    $('#trifecta_set').prop('checked', true);
+  } else {
+    $('#all_sets').text('all');
+    $('#sprint_set').prop('checked', false);
+    $('#super_set').prop('checked', false);
+    $('#beast_set').prop('checked', false);
+    $('#trifecta_set').prop('checked', false);
+  }
+
+
+}
+
+function copySprintSet() {
+
+  var reps_min = $('#sprint_reps_min').val();
+  var reps_max = $('#sprint_reps_max').val();
+
+  var duration_min = $('#sprint_duration_min').val();
+  var duration_max = $('#sprint_duration_max').val();
+
+  var distance_min = $('#sprint_distance_min').val();
+  var distance_max = $('#sprint_distance_max').val();
+
+  var rest_min = $('#sprint_rest_min').val();
+  var rest_max = $('#sprint_rest_max').val();
+
+  // Super
+  $('#super_reps_min').val(reps_min);
+  $('#super_reps_max').val(reps_max);
+
+  $('#super_duration_min').val(duration_min);
+  $('#super_duration_max').val(duration_max);
+
+  $('#super_distance_min').val(distance_min);
+  $('#super_distance_max').val(distance_max);
+
+  $('#super_rest_min').val(rest_min);
+  $('#super_rest_max').val(rest_max);
+
+  // Beast
+  $('#beast_reps_min').val(reps_min);
+  $('#beast_reps_max').val(reps_max);
+
+  $('#beast_duration_min').val(duration_min);
+  $('#beast_duration_max').val(duration_max);
+
+  $('#beast_distance_min').val(distance_min);
+  $('#beast_distance_max').val(distance_max);
+
+  $('#beast_rest_min').val(rest_min);
+  $('#beast_rest_max').val(rest_max);
+
+  // Trifecta
+  $('#trifecta_reps_min').val(reps_min);
+  $('#trifecta_reps_max').val(reps_max);
+
+  $('#trifecta_duration_min').val(duration_min);
+  $('#trifecta_duration_max').val(duration_max);
+
+  $('#trifecta_distance_min').val(distance_min);
+  $('#trifecta_distance_max').val(distance_max);
+
+  $('#trifecta_rest_min').val(rest_min);
+  $('#trifecta_rest_max').val(rest_max);
+
+}
+
+function copySprintExerciseSet() {
+
+  var reps_min = $('#sprint_exercise_reps_min').val();
+  var reps_max = $('#sprint_exercise_reps_max').val();
+
+  var duration_min = $('#sprint_exercise_duration_min').val();
+  var duration_max = $('#sprint_exercise_duration_max').val();
+
+  var distance_min = $('#sprint_exercise_distance_min').val();
+  var distance_max = $('#sprint_exercise_distance_max').val();
+
+  var rest_min = $('#sprint_exercise_rest_min').val();
+  var rest_max = $('#sprint_exercise_rest_max').val();
+
+  // Super
+  $('#super_exercise_reps_min').val(reps_min);
+  $('#super_exercise_reps_max').val(reps_max);
+
+  $('#super_exercise_duration_min').val(duration_min);
+  $('#super_exercise_duration_max').val(duration_max);
+
+  $('#super_exercise_distance_min').val(distance_min);
+  $('#super_exercise_distance_max').val(distance_max);
+
+  $('#super_exercise_rest_min').val(rest_min);
+  $('#super_exercise_rest_max').val(rest_max);
+
+  // Beast
+  $('#beast_exercise_reps_min').val(reps_min);
+  $('#beast_exercise_reps_max').val(reps_max);
+
+  $('#beast_exercise_duration_min').val(duration_min);
+  $('#beast_exercise_duration_max').val(duration_max);
+
+  $('#beast_exercise_distance_min').val(distance_min);
+  $('#beast_exercise_distance_max').val(distance_max);
+
+  $('#beast_exercise_rest_min').val(rest_min);
+  $('#beast_exercise_rest_max').val(rest_max);
+
+  // Trifecta
+  $('#trifecta_exercise_reps_min').val(reps_min);
+  $('#trifecta_exercise_reps_max').val(reps_max);
+
+  $('#trifecta_exercise_duration_min').val(duration_min);
+  $('#trifecta_exercise_duration_max').val(duration_max);
+
+  $('#trifecta_exercise_distance_min').val(distance_min);
+  $('#trifecta_exercise_distance_max').val(distance_max);
+
+  $('#trifecta_exercise_rest_min').val(rest_min);
+  $('#trifecta_exercise_rest_max').val(rest_max);
+
+}
 
 
 function addWOD(db) {
@@ -79,22 +592,13 @@ function addWOD(db) {
     sqlstr = "SELECT MAX(SPARTAN_WOD_ID) FROM SPARTAN_WOD;";
     var rs = db.exec(sqlstr);
   
-    console.dir(rs);
-
-    console.dir(rs[0]);
-    console.dir(rs[0]['values']);
-
     var spartanWODId = 1;
 
-    console.dir(rs[0]['values'][0]);
     if (rs[0]['values'][0][0] != null) {
-      console.log('values ...' + rs[0]['values'].length);
       spartanWODId = rs[0]['values'][0][0];
       spartanWODId++;
     }
 
-    console.log('SPARTAN_WOD_ID = ');
-    console.log(spartanWODId);
 
     // insert WOD
     sqlstr = "INSERT INTO SPARTAN_WOD(SPARTAN_WOD_ID, "
@@ -136,8 +640,6 @@ function addWOD(db) {
   }
 
   db.exec(sqlstr);
-
-  console.dir(rs);
 
   populateWODs(db);
 
@@ -267,7 +769,8 @@ function initdb(db) {
          + "                         DURATION_MAX FLOAT,"
          + "                         DIST_MIN FLOAT,"
          + "                         DIST_MAX FLOAT,"
-         + "                         TYPE VARCHAR); ";
+         + "                         TYPE VARCHAR,"
+         + "                         CALORIES FLOAT); ";
 
   db.exec(sqlstr);
 
@@ -317,7 +820,9 @@ function initdb(db) {
          + "                      EQ_POOL INTEGER,"
          + "                      EQ_BIKE INTEGER,"
          + "                      EQ_ROW_MACHINE INTEGER,"
-         + "                      EQ_ROPE INTEGER); ";
+         + "                      EQ_ROPE,"
+         + "                      CALORIES FLOAT,"
+         + "                      CALORIES_MEASURED_IN VARCHAR); ";
 
   db.exec(sqlstr);
 
@@ -333,6 +838,7 @@ function initdb(db) {
          + "                          DIST_MAX FLOAT,"
          + "                          REST_DURATION_MIN INTEGER,"
          + "                          REST_DURATION_MAX INTEGER,"
+         + "                          CALORIES FLOAT,"
          + "                          FOREIGN KEY(EXERCISE_ID) REFERENCES EXERCISE(EXERCISE_ID)); ";
 
   db.exec(sqlstr);
@@ -346,292 +852,293 @@ function initdb(db) {
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(1, 'arm curls', 'strength', 'https://www.youtube.com/watch?v=kwG2ipFRgfo', 'arms', 'biceps', 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(1, 'arm curls', 'strength', 'https://www.youtube.com/watch?v=kwG2ipFRgfo', 'upper body', 'arms', 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.23333, 'reps'); "; 
 
-  db.exec(sqlstr);
+  db.exec(sqlstr); 
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(2,'back extension', 'strength', 'https://www.youtube.com/watch?v=Bw9YuQTTc58', 'back', 'back', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(2,'back extension', 'strength', 'https://www.youtube.com/watch?v=Bw9YuQTTc58', 'upper body', 'back', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0.23333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(3, 'bear crawl', 'athleticism', 'https://www.youtube.com/watch?v=WMXbyYpZ9oY', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(3, 'bear crawl', 'athleticism', 'https://www.youtube.com/watch?v=WMXbyYpZ9oY', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 607.84, 'miles'); "; 
 
   db.exec(sqlstr);
-
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(4, 'belly crawl', 'athleticism', 'https://www.youtube.com/watch?v=cLwS1xkOLas', 'upper body', 'upper body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(4, 'belly crawl', 'athleticism', 'https://www.youtube.com/watch?v=cLwS1xkOLas', 'upper body', 'arms', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(5, 'bodyweight circuit', 'strength', '', 'full body', 'full body', 2, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(5, 'bodyweight circuit', 'strength', '', 'full body', 'full body', 2, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.6666, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(6, 'bodyweight squat', 'strength', 'https://www.youtube.com/watch?v=p3g4wAsu0R4', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(6, 'bodyweight squat', 'strength', 'https://www.youtube.com/watch?v=p3g4wAsu0R4', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.5787, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(7, 'box jump', 'strength', 'https://www.youtube.com/watch?v=hxldG9FX4j4', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(7, 'box jump', 'strength', 'https://www.youtube.com/watch?v=hxldG9FX4j4', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(8, 'box jump burpee', 'athleticism', 'https://www.youtube.com/watch?v=kiOcwv7YE6c', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(8, 'box jump burpee', 'athleticism', 'https://www.youtube.com/watch?v=kiOcwv7YE6c', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.6666, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(9, 'brazilian ab twist', 'strength', 'https://www.youtube.com/watch?v=iUk5T87cf34', 'core', 'abs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(9, 'brazilian ab twist', 'strength', 'https://www.youtube.com/watch?v=iUk5T87cf34', 'upper body', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0.1227, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(10, 'burpee', 'athleticism', 'https://www.youtube.com/watch?v=JZQA08SlJnM', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(10, 'burpee', 'athleticism', 'https://www.youtube.com/watch?v=JZQA08SlJnM', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.6666, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(11, 'burpee pull-up', 'strength', 'https://www.youtube.com/watch?v=kAvZoa5iexA', 'full body', 'full body', 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(11, 'burpee pull-up', 'strength', 'https://www.youtube.com/watch?v=kAvZoa5iexA', 'full body', 'full body', 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(12, 'chest pass', 'strength', 'https://www.youtube.com/watch?v=FUdcjZ0weic', 'upper body', 'chest', 2, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(12, 'chest pass', 'athleticism', 'https://www.youtube.com/watch?v=FUdcjZ0weic', 'upper body', 'chest', 2, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5427, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(13, 'chore', 'active rest', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(13, 'chore', 'active rest', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(14, 'crunch', 'strength', 'https://www.youtube.com/watch?v=Xyd_fa5zoEU', 'core', 'abs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(14, 'crunch', 'strength', 'https://www.youtube.com/watch?v=Xyd_fa5zoEU', 'upper body', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.1666, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(15, 'curl', 'strength', 'https://www.youtube.com/watch?v=oUqgPSZmhro', 'arms', 'biceps', 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(15, 'curl', 'strength', 'https://www.youtube.com/watch?v=oUqgPSZmhro', 'upper body', 'arms', 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.23333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(16, 'cycling', 'endurance', '', 'legs', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 1, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(16, 'cycling', 'endurance', '', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 1, 0, 0, 14, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(17, 'dog walking', 'active rest', '', 'legs', 'legs', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(17, 'dog walking', 'active rest', '', 'lower body', 'legs', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 60, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(18, 'double leg butt kicks', 'warmup', 'https://www.youtube.com/watch?v=F5iYMAkGaY8', 'legs', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(18, 'double leg butt kicks', 'warmup', 'https://www.youtube.com/watch?v=F5iYMAkGaY8', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(19, 'drop push-up', 'strength', 'https://www.youtube.com/watch?v=y9aAhXt2wYk', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(19, 'drop push-up', 'strength', 'https://www.youtube.com/watch?v=y9aAhXt2wYk', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.6666, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(20, 'dynamic warm up', 'warmup', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(20, 'dynamic warm up', 'warmup', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 10, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(21, 'easy jog', 'warmup', 'https://www.youtube.com/watch?v=BgZdwy1FO4Y', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(21, 'easy jog', 'warmup', 'https://www.youtube.com/watch?v=BgZdwy1FO4Y', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 136, 'miles'); ";
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(22, 'explosive broad jump', 'athleticism', 'https://www.youtube.com/watch?v=ko22JMOkzQQ', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(22, 'explosive broad jump', 'athleticism', 'https://www.youtube.com/watch?v=ko22JMOkzQQ', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.6666, 'reps'); ";  
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(23, 'flutter kick', 'strength', 'https://www.youtube.com/watch?v=ANVdMDaYRts', 'core', 'abs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(23, 'flutter kick', 'strength', 'https://www.youtube.com/watch?v=ANVdMDaYRts', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.1666, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(24, 'glute kickback', 'athleticism', 'https://www.youtube.com/watch?v=h4439IQFAqI', 'lower body', 'glutes', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(24, 'glute kickback', 'athleticism', 'https://www.youtube.com/watch?v=h4439IQFAqI', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(25, 'handstand hold', 'strength', 'https://www.youtube.com/watch?v=h4439IQFAqI', 'upper body', 'shoulders', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(25, 'handstand hold', 'strength', 'https://www.youtube.com/watch?v=h4439IQFAqI', 'upper body', 'arms', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 8.2, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(26, 'hanging knee raise', 'strength', 'https://www.youtube.com/watch?v=PGSKkNB1Oyk', 'core', 'abs', 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(26, 'hanging knee raise', 'strength', 'https://www.youtube.com/watch?v=PGSKkNB1Oyk', 'full body', 'core', 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2666, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(27, 'high knee', 'warmup', 'https://www.youtube.com/watch?v=8opcQdC-V-U', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(27, 'high knee', 'warmup', 'https://www.youtube.com/watch?v=8opcQdC-V-U', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(28, 'hiking', 'active rest', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(28, 'hiking', 'active rest', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 70, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(29, 'hill interval', 'athleticism', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 1, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(29, 'hill interval', 'athleticism', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 1, 0, 0, 0, 0, 100, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(30, 'inverted pull-up', 'strength', 'https://www.youtube.com/watch?v=lgsyUiB6occ', 'upper body', 'back', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(30, 'inverted pull-up', 'strength', 'https://www.youtube.com/watch?v=lgsyUiB6occ', 'upper body', 'upper body', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.2733, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(31, 'isometric lunge hold', 'strength', 'https://www.youtube.com/watch?v=u-bhL8zo570', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(31, 'isometric lunge hold', 'strength', 'https://www.youtube.com/watch?v=u-bhL8zo570', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 8.2, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(32, 'isometric wiper', 'strength', 'https://www.youtube.com/watch?v=VxrSMH5vVWY', 'upper body', 'arms', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(32, 'isometric wiper', 'strength', 'https://www.youtube.com/watch?v=VxrSMH5vVWY', 'upper body', 'arms', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(33, 'jog', 'endurance', 'https://www.youtube.com/watch?v=VxrSMH5vVWY', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(33, 'jog', 'endurance', 'https://www.youtube.com/watch?v=VxrSMH5vVWY', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 60, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(34, 'jump rope', 'warmup', 'https://www.youtube.com/watch?v=GRStB06uhgE', 'full body', 'full body', 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(34, 'jump rope', 'warmup', 'https://www.youtube.com/watch?v=GRStB06uhgE', 'full body', 'full body', 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14.288, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(35, 'jumping jack', 'warmup', 'https://www.youtube.com/watch?v=c4DAnQ6DtF8', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(35, 'jumping jack', 'warmup', 'https://www.youtube.com/watch?v=c4DAnQ6DtF8', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.2381, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(36, 'jumping lunge', 'athleticism', 'https://www.youtube.com/watch?v=Kw4QpPfX-cU', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(36, 'jumping lunge', 'athleticism', 'https://www.youtube.com/watch?v=Kw4QpPfX-cU', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, .3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(37, 'kettle bell 1-arm overhead farmer''s carry', 'strength', 'https://www.youtube.com/watch?v=uT1LV1eLcdM', 'upper body', 'upper body', 2, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(37, 'kettle bell 1-arm overhead farmer''s carry', 'strength', 'https://www.youtube.com/watch?v=uT1LV1eLcdM', 'upper body', 'upper body', 2, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(38, 'kettle bell swing', 'strength', 'https://www.youtube.com/watch?v=OopKTfLiz48', 'lower body', 'hip flexors', 2, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(38, 'kettle bell swing', 'strength', 'https://www.youtube.com/watch?v=OopKTfLiz48', 'full body', 'full body', 2, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(39, 'laying leg raise', 'athleticism', 'https://www.youtube.com/watch?v=xqTh6NqbAtM', 'lower body', 'hip flexors', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(39, 'laying leg raise', 'athleticism', 'https://www.youtube.com/watch?v=xqTh6NqbAtM', 'lower body', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.1666, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(40, 'run', 'endurance', 'https://www.youtube.com/watch?v=wCVSv7UxB2E', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(40, 'run', 'endurance', 'https://www.youtube.com/watch?v=wCVSv7UxB2E', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 90, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(41, 'mountain climber', 'endurance', 'https://www.youtube.com/watch?v=nmwgirgXLYM', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(41, 'mountain climber', 'endurance', 'https://www.youtube.com/watch?v=nmwgirgXLYM', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.5555, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(42, 'muscle-up', 'strength', 'https://youtu.be/ZEDY9QNBKe4', 'upper body', 'upper body', 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(42, 'muscle-up', 'strength', 'https://youtu.be/ZEDY9QNBKe4', 'upper body', 'upper body', 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(43, 'pistol squat', 'strength', 'https://www.youtube.com/watch?v=7NvOuty_Fnc', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(43, 'pistol squat', 'strength', 'https://www.youtube.com/watch?v=7NvOuty_Fnc', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 1, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(44, 'plank', 'strength', 'https://www.youtube.com/watch?v=pSHjTRCQxIw', 'core', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(44, 'plank', 'strength', 'https://www.youtube.com/watch?v=pSHjTRCQxIw', 'upper body', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 3.68, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(45, 'plyometric push-up', 'strength', 'https://www.youtube.com/watch?v=mgkyTtQ0ODE', 'upper body', 'upper body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(45, 'plyometric push-up', 'strength', 'https://www.youtube.com/watch?v=mgkyTtQ0ODE', 'upper body', 'upper body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.4, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(46, 'power skip', 'warmup', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(46, 'power skip', 'warmup', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(47, 'pull-up', 'warmup', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'upper body', 'upper body', 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(47, 'pull-up', 'warmup', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'upper body', 'upper body', 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(48, 'recover', 'rest', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'full body', 'full body', 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(48, 'push-up', 'warmup', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'upper body', 'upper body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.384, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(49, 'rope climb', 'rest', 'https://www.youtube.com/watch?v=AD0uO7JGdZU', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(49, 'recover', 'rest', 'https://www.youtube.com/watch?v=NCY9gFsZk9Y', 'full body', 'full body', 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0.01, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(50, 'row', 'endurance', '', 'full body', 'full body', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(50, 'rope climb', 'rest', 'https://www.youtube.com/watch?v=AD0uO7JGdZU', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1.32, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(51, 'sandbag/medicine ball slam', 'strength', 'https://www.youtube.com/watch?v=Y2wSD7spnxk', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(51, 'row', 'endurance', '', 'full body', 'full body', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 8.21, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(52, 'sandbag squat', 'strength', 'https://www.youtube.com/watch?v=U9yK6rHy40A', 'lower body', 'lower body', 2, 2, 0, 0, 2, 2, 2, 0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(52, 'sandbag/medicine ball slam', 'strength', 'https://www.youtube.com/watch?v=Y2wSD7spnxk', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.2, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(53, 'sandbag squat throw', 'strength', 'https://www.youtube.com/watch?v=R-zLekvxzpg', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(53, 'sandbag squat', 'strength', 'https://www.youtube.com/watch?v=U9yK6rHy40A', 'lower body', 'lower body', 2, 2, 0, 0, 2, 2, 2, 0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(54, 'shuttle run', 'strength', 'https://www.youtube.com/watch?v=Zcj_xdwLnNc', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(54, 'sandbag squat throw', 'strength', 'https://www.youtube.com/watch?v=R-zLekvxzpg', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(55, 'side kick', 'warmup', 'https://www.youtube.com/watch?v=MsmmbeXJ6Lw', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(55, 'shuttle run', 'strength', 'https://www.youtube.com/watch?v=Zcj_xdwLnNc', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 120, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(56, 'side plank', 'strength', 'https://www.youtube.com/watch?v=6cRAFji80CQ', 'core', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(56, 'side kick', 'warmup', 'https://www.youtube.com/watch?v=MsmmbeXJ6Lw', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.18, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(57, 'side-to-side hop', 'athleticism', 'https://www.youtube.com/watch?v=_AVX9cpPzks', 'core', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(57, 'side plank', 'strength', 'https://www.youtube.com/watch?v=6cRAFji80CQ', 'upper body', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 3.68, 'minutes'); ";
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(58, 'sit-up', 'strength', 'https://www.youtube.com/watch?v=1fbU_MkV7NE', 'core', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(58, 'side-to-side hop', 'athleticism', 'https://www.youtube.com/watch?v=_AVX9cpPzks', 'upper body', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.2381, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(59, 'speed skater', 'athleticism', 'https://www.youtube.com/watch?v=EkESodXYDRM', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(59, 'sit-up', 'strength', 'https://www.youtube.com/watch?v=1fbU_MkV7NE', 'upper body', 'core', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.1666, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(60, 'spiderman push-up', 'strength', 'https://www.youtube.com/watch?v=fKBeHALPsSU', 'upper body', 'upper body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(60, 'speed skater', 'athleticism', 'https://www.youtube.com/watch?v=EkESodXYDRM', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.2381, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(61, 'squat jump', 'strength', 'https://www.youtube.com/watch?v=DeTBwEL4m7s', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(61, 'spiderman push-up', 'strength', 'https://www.youtube.com/watch?v=fKBeHALPsSU', 'upper body', 'upper body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.4, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(62, 'star jump', 'athleticism', 'https://www.youtube.com/watch?v=h6wu4_LOhyU', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(62, 'squat jump', 'strength', 'https://www.youtube.com/watch?v=DeTBwEL4m7s', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(63, 'stretch', 'cooldown', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(63, 'star jump', 'athleticism', 'https://www.youtube.com/watch?v=h6wu4_LOhyU', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(64, 'swimming', 'endurance', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(64, 'stretch', 'cooldown', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.01, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(65, 'trail run', 'endurance', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(65, 'swimming', 'endurance', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 8.3333, 'minutes'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(66, 'tricep overhead extension', 'strength', 'https://www.youtube.com/watch?v=YbX7Wd8jQ-Q', 'upper body', 'triceps', 2, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(66, 'trail run', 'endurance', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 80, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(67, 'uphill dash', 'athleticism', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(67, 'tricep overhead extension', 'strength', 'https://www.youtube.com/watch?v=YbX7Wd8jQ-Q', 'upper body', 'arms', 2, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0.2733, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(68, 'vertical jump', 'athleticism', 'https://www.youtube.com/watch?v=K9zzVwMyD1g', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(68, 'uphill dash', 'athleticism', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 120, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(69, 'walk', 'active rest', '', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(69, 'vertical jump', 'athleticism', 'https://www.youtube.com/watch?v=K9zzVwMyD1g', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.3333, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(70, 'walking lunge', 'strength', 'https://www.youtube.com/watch?v=L8fvypPrzzs', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(70, 'walk', 'active rest', '', 'lower body', 'lower body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 50, 'miles'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(71, 'wide push-up', 'strength', 'https://www.youtube.com/watch?v=B78GwfC-87Y', 'upper body', 'chest', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(71, 'walking lunge', 'strength', 'https://www.youtube.com/watch?v=L8fvypPrzzs', 'lower body', 'legs', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.2644, 'reps'); "; 
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE) VALUES(72, 'yoga', 'active recovery', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0); ";
-  
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(72, 'wide push-up', 'strength', 'https://www.youtube.com/watch?v=B78GwfC-87Y', 'upper body', 'chest', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.384, 'reps'); "; 
+
   db.exec(sqlstr);
+
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(73, 'yoga', 'active recovery', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.1, 'minutes'); "; 
 }

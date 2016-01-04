@@ -16,3 +16,15 @@ In addition, Spartan WODs often had elements of things I could never do, like sw
 resources like pools and trails. So I wanted to be able to select my resources or preferences
 and get a tailored workout based on that.
 
+## Calories
+
+I needed a way to measure workout intensity, and the obvious choice was by measuring calories burned. 
+Unfortunately, this is easire said than done. Calories burned depends on heart rate, your body weight,
+muscles invoked, and a lot of other factors that just don't lend themselves to easy calculation. So, this is admittedly 
+some guess work.
+
+I googled calories burned for each exercise. Sometimes it was easy to find, sometimes not. Almost always though, I had to
+convert measurements into how I am measuring things. Discrete exercises with a start and end position, such as burpees, are measured in reps. 
+Continuous exercises, such as cycling or running, are divided into distance or duration. Since running is slightly more discrete, I measure it in distances of miles. 
+Cycling and swimming is measured in duration.
+Of course actual calories burned will vary with how high you're getting your heart rate, but we need some way of calculating the "intensity" so this was my compromise. 
