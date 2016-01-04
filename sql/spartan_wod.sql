@@ -11,6 +11,8 @@ CREATE TABLE SET_OF_SETS(SET_OF_SETS_ID INTEGER PRIMARY KEY ASC,
                          DURATION_MAX FLOAT,
                          DIST_MIN FLOAT,
                          DIST_MAX FLOAT,
+                         REST_DURATION_MIN FLOAT,
+                         REST_DURATION_MAX FLOAT,
                          TYPE VARCHAR,
                          CALORIES FLOAT);
 

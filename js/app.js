@@ -115,8 +115,12 @@ $(document).ready(function() {
     insertSet(db);
   });
 
+  $('#save_warmup_set').click(function() {
+    saveWarmupSet(db);
+  });
   
   populateWODs(db);
+  populateSets(db);
 
 });
 
@@ -137,6 +141,137 @@ function populateExercises(db) {
         .text(rs[0]['values'][i][1])); 
   }
 }
+
+function saveWarmupSet(db) {
+
+  var setCategory = 'warmup';
+  var setType = 'warmup';
+
+  var repsMin = parseFloat($('#warmup_reps_min').val());
+  var repsMax = parseFloat($('#warmup_reps_max').val());
+
+  var durationMin = parseFloat($('#warmup_duration_min').val());
+  var durationMax = parseFloat($('#warmup_duration_max').val());
+
+  var distanceMin = parseFloat($('#warmup_distance_min').val());
+  var distanceMax = parseFloat($('#warmup_distance_max').val());
+
+  var restMin = parseFloat($('#warmup_rest_min').val());
+  var restMax = parseFloat($('#warmup_rest_max').val());
+
+  if (isNaN(repsMin)) {
+    repsMin = 'null';
+  }
+  if (isNaN(repsMax)) {
+    repsMax = 'null';
+  }
+
+  if (isNaN(durationMin)) {
+    durationMin = 'null';
+  }
+  if (isNaN(durationMax)) {
+    durationMax = 'null';
+  }
+
+  if (isNaN(distanceMin)) {
+    distanceMin = 'null';
+  }
+  if (isNaN(distanceMax)) {
+    distanceMax = 'null';
+  }
+
+  if (isNaN(restMin)) { 
+    restMin = 'null';
+  }
+
+  if (isNaN(restMax)){
+    restMax = 'null';
+  }
+
+  var setCalories = 0;
+
+  // First see if the set exists
+  
+  var spartanWODId = $('#workouts > option:selected').attr('value'); 
+  
+  sqlstr = "SELECT * "
+         + "  FROM SET_OF_SETS"
+         + " WHERE SET_OF_SETS_ID IN (SELECT WARMUP_SET"
+         + "                            FROM SPARTAN_WOD"
+         + "                           WHERE SPARTAN_WOD_ID = " + spartanWODId + ");";
+
+  var rs = db.exec(sqlstr);
+
+  if (rs.length == 0) {
+
+    sqlstr = "SELECT MAX(SET_OF_SETS_ID) FROM SET_OF_SETS";
+    rs = db.exec(sqlstr);
+    
+    var setOfSetsId = 1;
+
+    if (rs[0]['values'][0][0] != null) {
+      setOfSetsId = rs[0]['values'][0][0];
+      setOfSetsId++;
+    }
+
+
+    var setOfSetsId = 1;
+    // insert Set of sets
+    sqlstr = "INSERT INTO SET_OF_SETS(SET_OF_SETS_ID, "
+           + "                        CATEGORY, "
+           + "                        REPS_MIN, "
+           + "                        REPS_MAX, "
+           + "                        DURATION_MIN, "
+           + "                        DURATION_MAX, "
+           + "                        DIST_MIN, "
+           + "                        DIST_MAX, "
+           + "                        REST_DURATION_MIN, "
+           + "                        REST_DURATION_MAX, "
+           + "                        TYPE, "
+           + "                        CALORIES) "
+           + "                  VALUES(" + setOfSetsId + ", "
+           + "                         '" + setCategory + "', "
+           + "                         " + repsMin + ", "
+           + "                         " + repsMax + ", "
+           + "                         " + durationMin + ", "
+           + "                         " + durationMax + ", "
+           + "                         " + distanceMin + ", "
+           + "                         " + distanceMax + ", "
+           + "                         " + restMin + ", "
+           + "                         " + restMax + ", "
+           + "                         '" + setType + "', "
+           + "                         " + setCalories + "); "
+
+    rs = db.exec(sqlstr);
+
+    // insert Set of sets
+    sqlstr = "UPDATE SPARTAN_WOD"
+           + "   SET WARMUP_SET = " + setOfSetsId + ";";
+
+    rs = db.exec(sqlstr);
+  } else {
+    var setOfSetsId = rs[0]['values'][0][0];
+
+    // insert Set of sets
+    sqlstr = "UPDATE SET_OF_SETS "
+           + "   SET CATEGORY = '" + setCategory + "', "
+           + "       REPS_MIN = " + repsMin + ", "
+           + "       REPS_MAX = " + repsMax + ", "
+           + "       DURATION_MIN = " + durationMin + ", "
+           + "       DURATION_MAX = " + durationMax + ", "
+           + "       DIST_MIN = " + distanceMin + ", "
+           + "       DIST_MAX = " + distanceMax + ", " 
+           + "       REST_DURATION_MIN = " + restMin + ", "
+           + "       REST_DURATION_MAX = " + restMax + ", "
+           + "       TYPE = '" + setType + "', "
+           + "       CALORIES = " + setCalories + " "
+           + " WHERE SET_OF_SETS_ID = " + setOfSetsId + ";"
+
+    rs = db.exec(sqlstr);
+  }
+
+}
+
 
 function insertSet(db) {
   var exerciseSetId = $('#sets > option:selected').attr('id'); 
@@ -336,54 +471,26 @@ function populateSets(db) {
 
 
   $('#sets').empty();
-  $('#sets')
-      .append($("<option></option>"))
-      .attr("value", "new")
-      .attr("id", "new")
-      .text("-- Add new --"); 
+  $('#sets').append($('<option value="new" id="new">-- Add new --</option>'));
 
 
   $('#warmup_sets').empty();
-  $('#warmup_sets')
-      .append($("<option></option>"))
-      .attr("value", "")
-      .attr("id", "")
-      .text("-- Select a set --"); 
+  $('#warmup_sets').append($('<option value="new" id="new">-- Add new --</option>'));
 
   $('#sprint_sets').empty();
-  $('#sprint_sets')
-      .append($("<option></option>"))
-      .attr("value", "")
-      .attr("id", "")
-      .text("-- Select a set --"); 
+  $('#sprint_sets').append($('<option value="new" id="new">-- Add new --</option>'));
 
   $('#super_sets').empty();
-  $('#super_sets')
-      .append($("<option></option>"))
-      .attr("value", "")
-      .attr("id", "")
-      .text("-- Select a set --"); 
+  $('#super_sets').append($('<option value="new" id="new">-- Add new --</option>'));
 
   $('#beast_sets').empty();
-  $('#beast_sets')
-      .append($("<option></option>"))
-      .attr("value", "")
-      .attr("id", "")
-      .text("-- Select a set --"); 
+  $('#beast_sets').append($('<option value="new" id="new">-- Add new --</option>'));
 
   $('#trifecta_sets').empty();
-  $('#trifecta_sets')
-      .append($("<option></option>"))
-      .attr("value", "")
-      .attr("id", "")
-      .text("-- Select a set --"); 
+  $('#trifecta_sets').append($('<option value="new" id="new">-- Add new --</option>'));
 
   $('#cooldown_sets').empty();
-  $('#cooldown_sets')
-      .append($("<option></option>"))
-      .attr("value", "")
-      .attr("id", "")
-      .text("-- Select a set --"); 
+  $('#cooldown_sets').append($('<option value="new" id="new">-- Add new --</option>'));
 
   // get all sets
   sqlstr = "SELECT es.EXERCISE_SET_ID,"
@@ -431,18 +538,11 @@ function populateSets(db) {
 
     console.log(setDesc);
 
-    $('#sets')
-        .append($("<option></option>"))
-        .attr("value", rs[0]['values'][i][0])
-        .attr("id", rs[0]['values'][i][0])
-        .text(setDesc); 
-
     var setType = rs[0]['values'][i][10];
-    $('#' + setType + '_sets')
-        .append($("<option></option>"))
-        .attr("value", rs[0]['values'][i][0])
-        .attr("id", rs[0]['values'][i][0])
-        .text(setDesc); 
+    
+    $('#sets').append($('<option value="' + rs[0]['values'][i][0] + '" id="' + rs[0]['values'][i][0] + '">' + setDesc + ' ' + setType + '</option>'));
+
+    $('#' + setType + '_sets').append($('<option value="' + rs[0]['values'][i][0] + '" id="' + rs[0]['values'][i][0] + '">' + setDesc + '</option>'));
   }
 }
 
@@ -684,6 +784,29 @@ function populateWODs(db) {
   });
 }
 
+function populateSetOfSets(db) {
+  var spartanWODId = $('#workouts').find(':selected').attr('value');
+
+  if (spartanWODId === 'new') {
+    return;
+  }
+  
+  sqlstr = "SELECT * FROM SPARTAN_WOD WHERE SPARTAN_WOD_ID = " + spartanWODId + ";";
+  var rs = db.exec(sqlstr);
+
+  if (rs.length == 0) {
+    return;
+  }
+
+  var warmupSetId = parseInt(rs[0]['values'][0][7]);
+  var sprintSetId = parseInt(rs[0]['values'][0][8]);
+  var superSetId = parseInt(rs[0]['values'][0][9]);
+  var beastSetId = parseInt(rs[0]['values'][0][10]);
+  var trifectaSetId = parseInt(rs[0]['values'][0][11]);
+  var cooldownSetId = parseInt(rs[0]['values'][0][12]);
+
+}
+
 function populateWorkout(db) {
 
   var spartanWODId = $('#workouts').find(':selected').attr('value');
@@ -769,6 +892,8 @@ function initdb(db) {
          + "                         DURATION_MAX FLOAT,"
          + "                         DIST_MIN FLOAT,"
          + "                         DIST_MAX FLOAT,"
+         + "                         REST_DURATION_MIN FLOAT,"
+         + "                         REST_DURATION_MAX FLOAT,"
          + "                         TYPE VARCHAR,"
          + "                         CALORIES FLOAT); ";
 
@@ -928,7 +1053,7 @@ function initdb(db) {
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(20, 'dynamic warm up', 'warmup', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 10, 'minutes'); "; 
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(20, 'dynamic warm up', 'warmup', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 3, 'minutes'); "; 
 
   db.exec(sqlstr);
 
@@ -980,7 +1105,7 @@ function initdb(db) {
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(33, 'jog', 'endurance', 'https://www.youtube.com/watch?v=VxrSMH5vVWY', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 60, 'miles'); "; 
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(33, 'jog', 'endurance', 'https://www.youtube.com/watch?v=VxrSMH5vVWY', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 200, 'miles'); "; 
 
   db.exec(sqlstr);
 
@@ -1008,7 +1133,7 @@ function initdb(db) {
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(40, 'run', 'endurance', 'https://www.youtube.com/watch?v=wCVSv7UxB2E', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 90, 'miles'); "; 
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(40, 'run', 'endurance', 'https://www.youtube.com/watch?v=wCVSv7UxB2E', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 350, 'miles'); "; 
 
   db.exec(sqlstr);
 
@@ -1068,7 +1193,7 @@ function initdb(db) {
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(55, 'shuttle run', 'strength', 'https://www.youtube.com/watch?v=Zcj_xdwLnNc', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 120, 'miles'); "; 
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(55, 'shuttle run', 'strength', 'https://www.youtube.com/watch?v=Zcj_xdwLnNc', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 400, 'miles'); "; 
 
   db.exec(sqlstr);
 
@@ -1112,7 +1237,7 @@ function initdb(db) {
 
   db.exec(sqlstr);
 
-  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(66, 'trail run', 'endurance', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 80, 'miles'); "; 
+  sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(66, 'trail run', 'endurance', '', 'full body', 'full body', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 350, 'miles'); "; 
 
   db.exec(sqlstr);
 
@@ -1141,4 +1266,34 @@ function initdb(db) {
   db.exec(sqlstr);
 
   sqlstr = "INSERT INTO EXERCISE(EXERCISE_ID, NAME, CATEGORY, DEMO_URL, GENERAL_MUSCLE_GROUP, TARGET_MUSCLE_GROUP, LOC_INDOORS, LOC_OUTDOORS, EQ_JUMP_ROPE, EQ_PULLUP_BAR, EQ_WEIGHTS, EQ_KETTLE_BELLS, EQ_HEAVY_OBJECT, EQ_TRX, EQ_MED_BALL, EQ_BOX, EQ_SQUAT_RACK, EQ_TREADMILL, EQ_TRACK, EQ_TRAIL, EQ_HILLS, EQ_POOL, EQ_BIKE, EQ_ROW_MACHINE, EQ_ROPE, CALORIES, CALORIES_MEASURED_IN) VALUES(73, 'yoga', 'active recovery', '', 'full body', 'full body', 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0.1, 'minutes'); "; 
+
+
+  // SET
+  sqlstr = "INSERT INTO EXERCISE_SET(EXERCISE_SET_ID, EXERCISE_ID, DIRECTION, TYPE, REPS_MIN, REPS_MAX, DURATION_MIN, DURATION_MAX, DIST_MIN, DIST_MAX, REST_DURATION_MIN, REST_DURATION_MAX, CALORIES) VALUES(1, 20, null, 'warmup', null, null, 5, 10, null, null, null, null, 45);";
+
+  db.exec(sqlstr);
+
+  // SET
+  sqlstr = "INSERT INTO EXERCISE_SET(EXERCISE_SET_ID, EXERCISE_ID, DIRECTION, TYPE, REPS_MIN, REPS_MAX, DURATION_MIN, DURATION_MAX, DIST_MIN, DIST_MAX, REST_DURATION_MIN, REST_DURATION_MAX, CALORIES) VALUES(2, 40, null, 'warmup', null, null, 10, 10, null, null, null, null, 350);";
+
+  db.exec(sqlstr);
+
+  // SET OF SETS
+  sqlstr = "INSERT INTO SET_OF_SETS(SET_OF_SETS_ID, CATEGORY, REPS_MIN, REPS_MAX, DURATION_MIN, DURATION_MAX, DIST_MIN, DIST_MAX, REST_DURATION_MIN, REST_DURATION_MAX, TYPE, CALORIES) VALUES (1, 'warmup', 1, 1, null, null, null, null, null, null, 'warmup', 45);";
+
+  db.exec(sqlstr);
+
+  sqlstr = "INSERT INTO EXERCISE_SET_JOIN(EXERCISE_SET_JOIN_ID, SET_OF_SETS_ID, EXERCISE_SET_ID, SET_ORDER) VALUES(1, 1, 1, 1);";
+
+  db.exec(sqlstr);
+
+  sqlstr = "INSERT INTO EXERCISE_SET_JOIN(EXERCISE_SET_JOIN_ID, SET_OF_SETS_ID, EXERCISE_SET_ID, SET_ORDER) VALUES(2, 1, 2, 2);";
+
+  db.exec(sqlstr);
+
+  // WOD
+  sqlstr = "INSERT INTO SPARTAN_WOD(SPARTAN_WOD_ID, NAME, CATEGORY, QUOTE, QUOTE_BY, DESCRIPTION, SPECIAL_DAY, WARMUP_SET, MAIN_SET_SPRINT, MAIN_SET_SUPER, MAIN_SET_BEAST, MAIN_SET_TRIFECTA, COOLDOWN_SET) VALUES(1, 'A Work of Art', 'athleticism', 'The human foot is a masterpiece of engineering and a work of art.', 'Leonardo da Vinci', 'Put those feet to good use in this workout. Celebrate your abilities by maximizing them.', null, 1, null, null, null, null, null); "; 
+
+  db.exec(sqlstr);
+
 }
