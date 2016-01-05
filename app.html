@@ -22,7 +22,7 @@
             <h1 id="wod-name">Create/Edit WOD</h1> 
 
             <select id="workouts">
-              <option value="new" selected="selected">-- Add New --</option>
+              <option value="new" selected="selected">-- Add new --</option>
             </select>
             <br />
 
@@ -154,15 +154,19 @@
             <input type="text" id="warmup_rest_max" />
             <br />
 
-            <div style="border-color: black; border: 1px;">
-              <select id="warmup_sets">
-                <option id="0">-- Select a set --</option>
-              </select>
-              <br />
-            <br />
-            <button id="add_warmup_set">Add Warmup Set</button>
             <br />
             <button id="save_warmup_set">Save Warmup</button>
+            <br />
+            <br />
+
+            <select id="warmup_sets">
+              <option id="0">-- Select a set --</option>
+            </select>
+
+            <br />
+            <button id="add_warmup_set">Add Warmup Set</button>
+            <div id="warmup_sets_added"></div>
+            
           </td>
           <td id="sprint">
 
@@ -198,18 +202,18 @@
             <br />
             <br />
 
-            <div style="border-color: black; border: 1px;">
-              <select id="sprint_sets">
-                <option id="0">-- Select a set --</option>
-              </select>
-              <br />
             <br />
-            <br />
-            <button id="copy_sprint_exercise">Copy Exercise Set --&gt;</button>
-            <br />
-            <button id="add_sprint_set">Add Sprint Set</button>
             <br />
             <button id="save_sprint_set">Save Sprint</button>
+            <br />
+            <br />
+            <select id="sprint_sets">
+              <option id="0">-- Select a set --</option>
+            </select>
+            <br />
+            <br />
+            <button id="add_sprint_set">Add Sprint Set</button>
+            <div id="sprint_sets_added"></div>
           </td>
           <td id="super">
 
@@ -240,15 +244,17 @@
             <input type="text" id="super_rest_max" />
             <br />
 
-            <div style="border-color: black; border: 1px;">
-              <select id="super_sets">
-                <option id="0">-- Select a set --</option>
-              </select>
-              <br />
-
-            <button id="add_super_set">Add Super Set</button>
             <br />
             <button id="save_super_set">Save Super</button>
+            <br />
+            <br />
+            <select id="super_sets">
+              <option id="0">-- Select a set --</option>
+            </select>
+            <br />
+            <br />
+            <button id="add_super_set">Add Super Set</button>
+            <div id="super_sets_added"></div>
           </td>
           <td id="beast">
 
@@ -278,16 +284,17 @@
             <label>Rest Max</label>
             <input type="text" id="beast_rest_max" />
             <br />
-
-            <div style="border-color: black; border: 1px;">
-              <select id="beast_sets">
-                <option id="0">-- Select a set --</option>
-              </select>
-              <br />
-
-            <button id="add_beast_set">Add Beast Set</button>
             <br />
             <button id="save_beast_set">Save Beast</button>
+            <br />
+            <br />
+            <select id="beast_sets">
+              <option id="0">-- Select a set --</option>
+            </select>
+            <br />
+            <br />
+            <button id="add_beast_set">Add Beast Set</button>
+            <div id="beast_sets_added"></div>
           </td>
           <td id="trifecta">
 
@@ -317,16 +324,17 @@
             <label>Rest Max</label>
             <input type="text" id="trifecta_rest_max" />
             <br />
-
-            <div style="border-color: black; border: 1px;">
-              <select id="trifecta_sets">
-                <option id="0">-- Select a set --</option>
-              </select>
-              <br />
-
-            <button id="add_trifecta_set">Add Trifecta Set</button>
             <br />
             <button id="save_trifecta_set">Save Trifecta</button>
+            <br />
+            <br />
+            <select id="trifecta_sets">
+              <option id="0">-- Select a set --</option>
+            </select>
+            <br />
+            <br />
+            <button id="add_trifecta_set">Add Trifecta Set</button>
+            <div id="trifecta_sets_added"></div>
           </td>
           <td id="cooldown">
 
@@ -356,16 +364,17 @@
             <label>Rest Max</label>
             <input type="text" id="cooldown_rest_max" />
             <br />
-
-            <div style="border-color: black; border: 1px;">
-              <select id="cooldown_sets">
-                <option id="0">-- Select a set --</option>
-              </select>
-              <br />
-
-            <button id="add_cooldown_set">Add Cooldown Set</button>
             <br />
             <button id="save_cooldown_set">Save Cooldown</button>
+            <br />
+            <br />
+            <select id="cooldown_sets">
+              <option id="0">-- Select a set --</option>
+            </select>
+            <br />
+            <br />
+            <button id="add_cooldown_set">Add Cooldown Set</button>
+            <div id="trifecta_sets_added"></div>
           </td>
         </tr>
       </table>
