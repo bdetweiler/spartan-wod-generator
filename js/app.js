@@ -55,7 +55,13 @@ $(document).ready(function() {
   });
 
   $('#copy_sprint_set').click(function() {
-    copySprintSet();
+    copySprintExerciseSet();
+  });
+
+  $('.delete').delegate("a", "click", function() {
+    var exerciseSetJoinId = $(this).attr('id');
+
+    deleteExerciseSetJoin(exerciseSetJoinId, db);
   });
 
 
@@ -137,6 +143,30 @@ $(document).ready(function() {
     saveSetOfSets('cooldown', db);
   });
 
+  $('#add_warmup_set').click(function() {
+    addSet('warmup', db);
+  });
+
+  $('#add_sprint_set').click(function() {
+    addSet('sprint', db);
+  });
+
+  $('#add_super_set').click(function() {
+    addSet('super', db);
+  });
+
+  $('#add_beast_set').click(function() {
+    addSet('beast', db);
+  });
+
+  $('#add_trifecta_set').click(function() {
+    addSet('trifecta', db);
+  });
+
+  $('#add_cooldown_set').click(function() {
+    addSet('cooldown', db);
+  });
+
   populateWODs(db);
   populateSets(db);
 
@@ -158,6 +188,16 @@ function populateExercises(db) {
         .attr("units", rs[0]['values'][i][3])
         .text(rs[0]['values'][i][1])); 
   }
+}
+
+function deleteExerciseSetJoin(exerciseSetJoinId, db) {
+    
+  var sqlstr = "DELETE FROM EXERCISE_SET_JOIN "
+             + " WHERE EXERCISE_SET_ID = " + exerciseSetJoinId + "; ";
+
+  var rs = db.exec(sqlstr);
+
+  populateSetOfSets(db);
 }
 
 function saveSetOfSets(setType, db) {
@@ -701,11 +741,11 @@ function populateSetOfSets(db) {
     if (rs[0]['values'][0][5] !== null) {
       $('#warmup_dist_max').val(rs[0]['values'][0][5]);
     }
-    if (rs[0]['values'][0][4] !== null) {
-      $('#warmup_rest_min').val(rs[0]['values'][0][4]);
+    if (rs[0]['values'][0][6] !== null) {
+      $('#warmup_rest_min').val(rs[0]['values'][0][6]);
     }
-    if (rs[0]['values'][0][5] !== null) {
-      $('#warmup_rest_max').val(rs[0]['values'][0][5]);
+    if (rs[0]['values'][0][7] !== null) {
+      $('#warmup_rest_max').val(rs[0]['values'][0][7]);
     }
 
     sqlstr = "SELECT esj.SET_ORDER, "
@@ -718,7 +758,8 @@ function populateSetOfSets(db) {
            + "       es.DIST_MIN, "
            + "       es.DIST_MAX, "
            + "       es.REST_DURATION_MIN, "
-           + "       es.REST_DURATION_MAX "
+           + "       es.REST_DURATION_MAX, "
+           + "       esj.EXERCISE_SET_JOIN_ID "
            + "  FROM EXERCISE_SET_JOIN esj, "
            + "       EXERCISE_SET es, "
            + "       EXERCISE e "
@@ -761,7 +802,7 @@ function populateSetOfSets(db) {
 
       descStr += ']';
 
-      $('#warmup_sets_added').append('<div>' + descStr + '</div>')
+      $('#warmup_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
     }
   }
 
@@ -800,11 +841,11 @@ function populateSetOfSets(db) {
     if (rs[0]['values'][0][5] !== null) {
       $('#sprint_dist_max').val(rs[0]['values'][0][5]);
     }
-    if (rs[0]['values'][0][4] !== null) {
-      $('#sprint_rest_min').val(rs[0]['values'][0][4]);
+    if (rs[0]['values'][0][6] !== null) {
+      $('#sprint_rest_min').val(rs[0]['values'][0][6]);
     }
-    if (rs[0]['values'][0][5] !== null) {
-      $('#sprint_rest_max').val(rs[0]['values'][0][5]);
+    if (rs[0]['values'][0][7] !== null) {
+      $('#sprint_rest_max').val(rs[0]['values'][0][7]);
     }
 
     sqlstr = "SELECT esj.SET_ORDER, "
@@ -859,8 +900,8 @@ function populateSetOfSets(db) {
       }
 
       descStr += ']';
-
-      $('#sprint_sets_added').append('<div>' + descStr + '</div>')
+      
+      $('#sprint_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
     }
   }
 
@@ -899,11 +940,11 @@ function populateSetOfSets(db) {
     if (rs[0]['values'][0][5] !== null) {
       $('#super_dist_max').val(rs[0]['values'][0][5]);
     }
-    if (rs[0]['values'][0][4] !== null) {
-      $('#super_rest_min').val(rs[0]['values'][0][4]);
+    if (rs[0]['values'][0][6] !== null) {
+      $('#super_rest_min').val(rs[0]['values'][0][6]);
     }
-    if (rs[0]['values'][0][5] !== null) {
-      $('#super_rest_max').val(rs[0]['values'][0][5]);
+    if (rs[0]['values'][0][7] !== null) {
+      $('#super_rest_max').val(rs[0]['values'][0][7]);
     }
 
     sqlstr = "SELECT esj.SET_ORDER, "
@@ -959,7 +1000,7 @@ function populateSetOfSets(db) {
 
       descStr += ']';
 
-      $('#super_sets_added').append('<div>' + descStr + '</div>')
+      $('#super_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
     }
   }
 
@@ -998,11 +1039,11 @@ function populateSetOfSets(db) {
     if (rs[0]['values'][0][5] !== null) {
       $('#beast_dist_max').val(rs[0]['values'][0][5]);
     }
-    if (rs[0]['values'][0][4] !== null) {
-      $('#beast_rest_min').val(rs[0]['values'][0][4]);
+    if (rs[0]['values'][0][6] !== null) {
+      $('#beast_rest_min').val(rs[0]['values'][0][6]);
     }
-    if (rs[0]['values'][0][5] !== null) {
-      $('#beast_rest_max').val(rs[0]['values'][0][5]);
+    if (rs[0]['values'][0][7] !== null) {
+      $('#beast_rest_max').val(rs[0]['values'][0][7]);
     }
 
     sqlstr = "SELECT esj.SET_ORDER, "
@@ -1058,7 +1099,7 @@ function populateSetOfSets(db) {
 
       descStr += ']';
 
-      $('#beast_sets_added').append('<div>' + descStr + '</div>')
+      $('#beast_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
     }
   }
 
@@ -1097,11 +1138,11 @@ function populateSetOfSets(db) {
     if (rs[0]['values'][0][5] !== null) {
       $('#trifecta_dist_max').val(rs[0]['values'][0][5]);
     }
-    if (rs[0]['values'][0][4] !== null) {
-      $('#trifecta_rest_min').val(rs[0]['values'][0][4]);
+    if (rs[0]['values'][0][6] !== null) {
+      $('#trifecta_rest_min').val(rs[0]['values'][0][6]);
     }
-    if (rs[0]['values'][0][5] !== null) {
-      $('#trifecta_rest_max').val(rs[0]['values'][0][5]);
+    if (rs[0]['values'][0][7] !== null) {
+      $('#trifecta_rest_max').val(rs[0]['values'][0][7]);
     }
 
     sqlstr = "SELECT esj.SET_ORDER, "
@@ -1157,7 +1198,7 @@ function populateSetOfSets(db) {
 
       descStr += ']';
 
-      $('#trifecta_sets_added').append('<div>' + descStr + '</div>')
+      $('#trifecta_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
     }
   }
 
@@ -1196,11 +1237,11 @@ function populateSetOfSets(db) {
     if (rs[0]['values'][0][5] !== null) {
       $('#cooldown_dist_max').val(rs[0]['values'][0][5]);
     }
-    if (rs[0]['values'][0][4] !== null) {
-      $('#cooldown_rest_min').val(rs[0]['values'][0][4]);
+    if (rs[0]['values'][0][6] !== null) {
+      $('#cooldown_rest_min').val(rs[0]['values'][0][6]);
     }
-    if (rs[0]['values'][0][5] !== null) {
-      $('#cooldown_rest_max').val(rs[0]['values'][0][5]);
+    if (rs[0]['values'][0][7] !== null) {
+      $('#cooldown_rest_max').val(rs[0]['values'][0][7]);
     }
 
 
@@ -1257,7 +1298,7 @@ function populateSetOfSets(db) {
 
       descStr += ']';
 
-      $('#cooldown_sets_added').append('<div>' + descStr + '</div>')
+      $('#cooldown_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
     }
   }
   
@@ -1283,62 +1324,142 @@ function toggleAllSets() {
 
 }
 
-function addSet(db) {
+function addSet(setType, db) {
+    
+    var spartanWODId = $('#workouts > option:selected').attr('value');
+   
+    var columnName = '';
+    var exerciseSetId = 0;
+    if (setType === 'warmup') {
+      columnName = 'WARMUP_SET'; 
+      exerciseSetId = $('#warmup_sets > option:selected').attr('id');
 
+    } else if (setType === 'cooldown') {
+      columnName = 'COOLDOWN_SET'; 
+      exerciseSetId = $('#cooldown_sets > option:selected').attr('id');
+
+    } else if (setType === 'sprint') {
+      columnName = 'MAIN_SET_SPRINT'; 
+      exerciseSetId = $('#sprint_sets > option:selected').attr('id');
+
+    } else if (setType === 'super') {
+      columnName = 'MAIN_SET_SUPER'; 
+      exerciseSetId = $('#super_sets > option:selected').attr('id');
+
+    } else if (setType === 'beast') {
+      columnName = 'MAIN_SET_BEAST'; 
+      exerciseSetId = $('#beast_sets > option:selected').attr('id');
+
+    } else if (setType === 'trifecta') {
+      columnName = 'MAIN_SET_TRIFECTA'; 
+      exerciseSetId = $('#trifecta_sets > option:selected').attr('id');
+
+    }
+
+    sqlstr = "SELECT " + columnName
+           + "  FROM SPARTAN_WOD "
+           + " WHERE SPARTAN_WOD_ID = " + spartanWODId;
+
+    // Prepare an sql statement
+    var rs = db.exec(sqlstr);
+
+    if (rs[0]['values'].length === 0) {
+        alert(columnName + ' is null');
+        return;
+    }
+
+    var setOfSetsId = parseInt(rs[0]['values'][0][0]);
+
+
+    sqlstr = "SELECT MAX(EXERCISE_SET_JOIN_ID) FROM EXERCISE_SET_JOIN;"
+    // Prepare an sql statement
+    var rs = db.exec(sqlstr);
+
+    var exerciseSetJoinId = 1;
+
+    if (rs[0]['values'][0][0] != null) {
+      exerciseSetJoinId = rs[0]['values'][0][0];
+      exerciseSetJoinId++;
+    }
+
+    sqlstr = "SELECT MAX(SET_ORDER) FROM EXERCISE_SET_JOIN WHERE SET_OF_SETS_ID = " + setOfSetsId + ";";
+    // Prepare an sql statement
+    var rs = db.exec(sqlstr);
+
+    var exerciseSetJoinOrder = 1;
+
+    if (rs[0]['values'][0][0] != null) {
+      exerciseSetJoinOrder = rs[0]['values'][0][0];
+      exerciseSetJoinOrder++;
+    }
+
+    sqlstr = "INSERT INTO EXERCISE_SET_JOIN (EXERCISE_SET_JOIN_ID,"
+           + "                               SET_OF_SETS_ID,"
+           + "                               EXERCISE_SET_ID,"
+           + "                               SET_ORDER)"
+           + "                       VALUES (" + exerciseSetJoinId + ", "
+           + "                               " + setOfSetsId + ", "
+           + "                               " + exerciseSetId + ", "
+           + "                               " + exerciseSetJoinOrder + ");";
+
+    // Prepare an sql statement
+    var rs = db.exec(sqlstr);
+
+    populateSetOfSets(db);
 }
 
 function copySprintExerciseSet() {
 
-  var reps_min = $('#sprint_exercise_reps_min').val();
-  var reps_max = $('#sprint_exercise_reps_max').val();
+  var reps_min = $('#sprint_reps_min').val();
+  var reps_max = $('#sprint_reps_max').val();
 
-  var duration_min = $('#sprint_exercise_duration_min').val();
-  var duration_max = $('#sprint_exercise_duration_max').val();
+  var duration_min = $('#sprint_duration_min').val();
+  var duration_max = $('#sprint_duration_max').val();
 
-  var distance_min = $('#sprint_exercise_distance_min').val();
-  var distance_max = $('#sprint_exercise_distance_max').val();
+  var distance_min = $('#sprint_distance_min').val();
+  var distance_max = $('#sprint_distance_max').val();
 
-  var rest_min = $('#sprint_exercise_rest_min').val();
-  var rest_max = $('#sprint_exercise_rest_max').val();
+  var rest_min = $('#sprint_rest_min').val();
+  var rest_max = $('#sprint_rest_max').val();
 
   // Super
-  $('#super_exercise_reps_min').val(reps_min);
-  $('#super_exercise_reps_max').val(reps_max);
+  $('#super_reps_min').val(reps_min);
+  $('#super_reps_max').val(reps_max);
 
-  $('#super_exercise_duration_min').val(duration_min);
-  $('#super_exercise_duration_max').val(duration_max);
+  $('#super_duration_min').val(duration_min);
+  $('#super_duration_max').val(duration_max);
 
-  $('#super_exercise_distance_min').val(distance_min);
-  $('#super_exercise_distance_max').val(distance_max);
+  $('#super_distance_min').val(distance_min);
+  $('#super_distance_max').val(distance_max);
 
-  $('#super_exercise_rest_min').val(rest_min);
-  $('#super_exercise_rest_max').val(rest_max);
+  $('#super_rest_min').val(rest_min);
+  $('#super_rest_max').val(rest_max);
 
   // Beast
-  $('#beast_exercise_reps_min').val(reps_min);
-  $('#beast_exercise_reps_max').val(reps_max);
+  $('#beast_reps_min').val(reps_min);
+  $('#beast_reps_max').val(reps_max);
 
-  $('#beast_exercise_duration_min').val(duration_min);
-  $('#beast_exercise_duration_max').val(duration_max);
+  $('#beast_duration_min').val(duration_min);
+  $('#beast_duration_max').val(duration_max);
 
-  $('#beast_exercise_distance_min').val(distance_min);
-  $('#beast_exercise_distance_max').val(distance_max);
+  $('#beast_distance_min').val(distance_min);
+  $('#beast_distance_max').val(distance_max);
 
-  $('#beast_exercise_rest_min').val(rest_min);
-  $('#beast_exercise_rest_max').val(rest_max);
+  $('#beast_rest_min').val(rest_min);
+  $('#beast_rest_max').val(rest_max);
 
   // Trifecta
-  $('#trifecta_exercise_reps_min').val(reps_min);
-  $('#trifecta_exercise_reps_max').val(reps_max);
+  $('#trifecta_reps_min').val(reps_min);
+  $('#trifecta_reps_max').val(reps_max);
 
-  $('#trifecta_exercise_duration_min').val(duration_min);
-  $('#trifecta_exercise_duration_max').val(duration_max);
+  $('#trifecta_duration_min').val(duration_min);
+  $('#trifecta_duration_max').val(duration_max);
 
-  $('#trifecta_exercise_distance_min').val(distance_min);
-  $('#trifecta_exercise_distance_max').val(distance_max);
+  $('#trifecta_distance_min').val(distance_min);
+  $('#trifecta_distance_max').val(distance_max);
 
-  $('#trifecta_exercise_rest_min').val(rest_min);
-  $('#trifecta_exercise_rest_max').val(rest_max);
+  $('#trifecta_rest_min').val(rest_min);
+  $('#trifecta_rest_max').val(rest_max);
 
 }
 
