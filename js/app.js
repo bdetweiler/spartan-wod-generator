@@ -114,9 +114,29 @@ $(document).ready(function() {
   });
 
   $('#save_warmup_set').click(function() {
-    saveWarmupSet(db);
+    saveSetOfSets('warmup', db);
+  });
+
+  $('#save_sprint_set').click(function() {
+    saveSetOfSets('sprint', db);
+  });
+
+  $('#save_super_set').click(function() {
+    saveSetOfSets('super', db);
+  });
+
+  $('#save_beast_set').click(function() {
+    saveSetOfSets('beast', db);
+  });
+
+  $('#save_trifecta_set').click(function() {
+    saveSetOfSets('trifecta', db);
   });
   
+  $('#save_cooldown_set').click(function() {
+    saveSetOfSets('cooldown', db);
+  });
+
   populateWODs(db);
   populateSets(db);
 
@@ -140,22 +160,21 @@ function populateExercises(db) {
   }
 }
 
-function saveWarmupSet(db) {
+function saveSetOfSets(setType, db) {
 
-  var setCategory = 'warmup';
-  var setType = 'warmup';
+  var setCategory = setType;
 
-  var repsMin = parseFloat($('#warmup_reps_min').val());
-  var repsMax = parseFloat($('#warmup_reps_max').val());
+  var repsMin = parseFloat($('#' + setType + '_reps_min').val());
+  var repsMax = parseFloat($('#' + setType + '_reps_max').val());
 
-  var durationMin = parseFloat($('#warmup_duration_min').val());
-  var durationMax = parseFloat($('#warmup_duration_max').val());
+  var durationMin = parseFloat($('#' + setType + '_duration_min').val());
+  var durationMax = parseFloat($('#' + setType + '_duration_max').val());
 
-  var distanceMin = parseFloat($('#warmup_distance_min').val());
-  var distanceMax = parseFloat($('#warmup_distance_max').val());
+  var distanceMin = parseFloat($('#' + setType + '_distance_min').val());
+  var distanceMax = parseFloat($('#' + setType + '_distance_max').val());
 
-  var restMin = parseFloat($('#warmup_rest_min').val());
-  var restMax = parseFloat($('#warmup_rest_max').val());
+  var restMin = parseFloat($('#' + setType + '_rest_min').val());
+  var restMax = parseFloat($('#' + setType + '_rest_max').val());
 
   if (isNaN(repsMin)) {
     repsMin = 'null';
@@ -191,12 +210,26 @@ function saveWarmupSet(db) {
   // First see if the set exists
   
   var spartanWODId = $('#workouts > option:selected').attr('value'); 
-  
-  sqlstr = "SELECT * "
-         + "  FROM SET_OF_SETS"
-         + " WHERE SET_OF_SETS_ID IN (SELECT WARMUP_SET"
-         + "                            FROM SPARTAN_WOD"
-         + "                           WHERE SPARTAN_WOD_ID = " + spartanWODId + ");";
+ 
+  if (setType === 'warmup') {
+    sqlstr = "SELECT * "
+           + "  FROM SET_OF_SETS"
+           + " WHERE SET_OF_SETS_ID IN (SELECT WARMUP_SET"
+           + "                            FROM SPARTAN_WOD"
+           + "                           WHERE SPARTAN_WOD_ID = " + spartanWODId + ");";
+  } else if (setType === 'cooldown') { 
+    sqlstr = "SELECT * "
+           + "  FROM SET_OF_SETS"
+           + " WHERE SET_OF_SETS_ID IN (SELECT COOLDOWN_SET"
+           + "                            FROM SPARTAN_WOD"
+           + "                           WHERE SPARTAN_WOD_ID = " + spartanWODId + ");";
+  } else {
+    sqlstr = "SELECT * "
+           + "  FROM SET_OF_SETS"
+           + " WHERE SET_OF_SETS_ID IN (SELECT MAIN_SET_" + setType.toUpperCase()
+           + "                            FROM SPARTAN_WOD"
+           + "                           WHERE SPARTAN_WOD_ID = " + spartanWODId + ");";
+  }
 
   var rs = db.exec(sqlstr);
 
@@ -212,8 +245,6 @@ function saveWarmupSet(db) {
       setOfSetsId++;
     }
 
-
-    var setOfSetsId = 1;
     // insert Set of sets
     sqlstr = "INSERT INTO SET_OF_SETS(SET_OF_SETS_ID, "
            + "                        CATEGORY, "
@@ -243,10 +274,19 @@ function saveWarmupSet(db) {
     rs = db.exec(sqlstr);
 
     // insert Set of sets
-    sqlstr = "UPDATE SPARTAN_WOD"
-           + "   SET WARMUP_SET = " + setOfSetsId + ";";
+    if (setType === 'warmup') {
+      sqlstr = "UPDATE SPARTAN_WOD"
+             + "   SET WARMUP_SET = " + setOfSetsId + ";";
+    } else if (setType === 'cooldown') { 
+      sqlstr = "UPDATE SPARTAN_WOD"
+             + "   SET COOLDOWN_SET = " + setOfSetsId + ";";
+    } else {
+      sqlstr = "UPDATE SPARTAN_WOD"
+             + "   SET MAIN_SET_" + setType + ' = ' + setOfSetsId + ";";
+    }
 
     rs = db.exec(sqlstr);
+
   } else {
     var setOfSetsId = rs[0]['values'][0][0];
 
