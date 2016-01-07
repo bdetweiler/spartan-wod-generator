@@ -58,12 +58,47 @@ $(document).ready(function() {
     copySprintExerciseSet();
   });
 
-  $('.delete').delegate("a", "click", function() {
+  $('#warmup_sets_added').delegate("a", "click", function() {
+    console.dir($(this));
     var exerciseSetJoinId = $(this).attr('id');
 
     deleteExerciseSetJoin(exerciseSetJoinId, db);
   });
 
+  $('#sprint_sets_added').delegate("a", "click", function() {
+    console.dir($(this));
+    var exerciseSetJoinId = $(this).attr('id');
+
+    deleteExerciseSetJoin(exerciseSetJoinId, db);
+  });
+
+  $('#super_sets_added').delegate("a", "click", function() {
+    console.dir($(this));
+    var exerciseSetJoinId = $(this).attr('id');
+
+    deleteExerciseSetJoin(exerciseSetJoinId, db);
+  });
+
+  $('#beast_sets_added').delegate("a", "click", function() {
+    console.dir($(this));
+    var exerciseSetJoinId = $(this).attr('id');
+
+    deleteExerciseSetJoin(exerciseSetJoinId, db);
+  });
+
+  $('#trifecta_sets_added').delegate("a", "click", function() {
+    console.dir($(this));
+    var exerciseSetJoinId = $(this).attr('id');
+
+    deleteExerciseSetJoin(exerciseSetJoinId, db);
+  });
+
+  $('#cooldown_sets_added').delegate("a", "click", function() {
+    console.dir($(this));
+    var exerciseSetJoinId = $(this).attr('id');
+
+    deleteExerciseSetJoin(exerciseSetJoinId, db);
+  });
 
   $('#all_sets').click(function() {
     toggleAllSets();
@@ -193,7 +228,7 @@ function populateExercises(db) {
 function deleteExerciseSetJoin(exerciseSetJoinId, db) {
     
   var sqlstr = "DELETE FROM EXERCISE_SET_JOIN "
-             + " WHERE EXERCISE_SET_ID = " + exerciseSetJoinId + "; ";
+             + " WHERE EXERCISE_SET_JOIN_ID = " + exerciseSetJoinId + "; ";
 
   var rs = db.exec(sqlstr);
 
@@ -770,39 +805,43 @@ function populateSetOfSets(db) {
 
     var rs = db.exec(sqlstr);
 
-    for (i = 0; i < rs[0]['values'].length; ++i) {
-      
-      var descStr = '';
+    try {
+      for (i = 0; i < rs[0]['values'].length; ++i) {
+        
+        var descStr = '';
 
-      if (rs[0]['values'][i][1] !== null) {
-        descStr += rs[0]['values'][i][1];
+        if (rs[0]['values'][i][1] !== null) {
+          descStr += rs[0]['values'][i][1];
+        }
+
+        if (rs[0]['values'][i][2] !== null) {
+          descStr += '-' + rs[0]['values'][i][2];
+        }
+
+        descStr += ' [';
+
+        if (rs[0]['values'][i][3] !== null) {
+          descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
+        }
+
+        if (rs[0]['values'][i][5] !== null) {
+          descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
+        }
+
+        if (rs[0]['values'][i][7] !== null) {
+          descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
+        }
+
+        if (rs[0]['values'][i][9] !== null) {
+          descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
+        }
+
+        descStr += ']';
+
+        $('#warmup_sets_added').append(descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][11] + '">X</a><br />')
       }
-
-      if (rs[0]['values'][i][2] !== null) {
-        descStr += '-' + rs[0]['values'][i][2];
-      }
-
-      descStr += ' [';
-
-      if (rs[0]['values'][i][3] !== null) {
-        descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
-      }
-
-      if (rs[0]['values'][i][5] !== null) {
-        descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
-      }
-
-      if (rs[0]['values'][i][7] !== null) {
-        descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
-      }
-
-      if (rs[0]['values'][i][9] !== null) {
-        descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
-      }
-
-      descStr += ']';
-
-      $('#warmup_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
+    } catch (e) {
+      ;;;
     }
   }
 
@@ -870,39 +909,43 @@ function populateSetOfSets(db) {
 
     var rs = db.exec(sqlstr);
 
-    for (i = 0; i < rs[0]['values'].length; ++i) {
-      
-      var descStr = '';
+    try {
+      for (i = 0; i < rs[0]['values'].length; ++i) {
+        
+        var descStr = '';
 
-      if (rs[0]['values'][i][1] !== null) {
-        descStr += rs[0]['values'][i][1];
+        if (rs[0]['values'][i][1] !== null) {
+          descStr += rs[0]['values'][i][1];
+        }
+
+        if (rs[0]['values'][i][2] !== null) {
+          descStr += '-' + rs[0]['values'][i][2];
+        }
+
+        descStr += ' [';
+
+        if (rs[0]['values'][i][3] !== null) {
+          descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
+        }
+
+        if (rs[0]['values'][i][5] !== null) {
+          descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
+        }
+
+        if (rs[0]['values'][i][7] !== null) {
+          descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
+        }
+
+        if (rs[0]['values'][i][9] !== null) {
+          descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
+        }
+
+        descStr += ']';
+        
+        $('#sprint_sets_added').append(descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][11] + '">X</a><br />')
       }
-
-      if (rs[0]['values'][i][2] !== null) {
-        descStr += '-' + rs[0]['values'][i][2];
-      }
-
-      descStr += ' [';
-
-      if (rs[0]['values'][i][3] !== null) {
-        descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
-      }
-
-      if (rs[0]['values'][i][5] !== null) {
-        descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
-      }
-
-      if (rs[0]['values'][i][7] !== null) {
-        descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
-      }
-
-      if (rs[0]['values'][i][9] !== null) {
-        descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
-      }
-
-      descStr += ']';
-      
-      $('#sprint_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
+    } catch (e) {
+      ;;;
     }
   }
 
@@ -970,39 +1013,43 @@ function populateSetOfSets(db) {
 
     var rs = db.exec(sqlstr);
 
-    for (i = 0; i < rs[0]['values'].length; ++i) {
-      
-      var descStr = '';
+    try {
+      for (i = 0; i < rs[0]['values'].length; ++i) {
+        
+        var descStr = '';
 
-      if (rs[0]['values'][i][1] !== null) {
-        descStr += rs[0]['values'][i][1];
+        if (rs[0]['values'][i][1] !== null) {
+          descStr += rs[0]['values'][i][1];
+        }
+
+        if (rs[0]['values'][i][2] !== null) {
+          descStr += '-' + rs[0]['values'][i][2];
+        }
+
+        descStr += ' [';
+
+        if (rs[0]['values'][i][3] !== null) {
+          descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
+        }
+
+        if (rs[0]['values'][i][5] !== null) {
+          descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
+        }
+
+        if (rs[0]['values'][i][7] !== null) {
+          descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
+        }
+
+        if (rs[0]['values'][i][9] !== null) {
+          descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
+        }
+
+        descStr += ']';
+
+        $('#super_sets_added').append(descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][11] + '">X</a><br />')
       }
-
-      if (rs[0]['values'][i][2] !== null) {
-        descStr += '-' + rs[0]['values'][i][2];
-      }
-
-      descStr += ' [';
-
-      if (rs[0]['values'][i][3] !== null) {
-        descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
-      }
-
-      if (rs[0]['values'][i][5] !== null) {
-        descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
-      }
-
-      if (rs[0]['values'][i][7] !== null) {
-        descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
-      }
-
-      if (rs[0]['values'][i][9] !== null) {
-        descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
-      }
-
-      descStr += ']';
-
-      $('#super_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
+    } catch (e) {
+      ;;;
     }
   }
 
@@ -1070,39 +1117,43 @@ function populateSetOfSets(db) {
 
     var rs = db.exec(sqlstr);
 
-    for (i = 0; i < rs[0]['values'].length; ++i) {
-      
-      var descStr = '';
+    try {
+      for (i = 0; i < rs[0]['values'].length; ++i) {
+        
+        var descStr = '';
 
-      if (rs[0]['values'][i][1] !== null) {
-        descStr += rs[0]['values'][i][1];
-      }
+        if (rs[0]['values'][i][1] !== null) {
+          descStr += rs[0]['values'][i][1];
+        }
 
-      if (rs[0]['values'][i][2] !== null) {
-        descStr += '-' + rs[0]['values'][i][2];
-      }
+        if (rs[0]['values'][i][2] !== null) {
+          descStr += '-' + rs[0]['values'][i][2];
+        }
 
-      descStr += ' [';
+        descStr += ' [';
 
-      if (rs[0]['values'][i][3] !== null) {
-        descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
-      }
+        if (rs[0]['values'][i][3] !== null) {
+          descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
+        }
 
-      if (rs[0]['values'][i][5] !== null) {
-        descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
-      }
+        if (rs[0]['values'][i][5] !== null) {
+          descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
+        }
 
-      if (rs[0]['values'][i][7] !== null) {
-        descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
-      }
+        if (rs[0]['values'][i][7] !== null) {
+          descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
+        }
 
-      if (rs[0]['values'][i][9] !== null) {
-        descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
-      }
+        if (rs[0]['values'][i][9] !== null) {
+          descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
+        }
 
-      descStr += ']';
+        descStr += ']';
 
-      $('#beast_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
+        $('#beast_sets_added').append(descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][11] + '">X</a><br />')
+      } 
+    } catch (e) {
+      ;;;
     }
   }
 
@@ -1170,39 +1221,43 @@ function populateSetOfSets(db) {
 
     var rs = db.exec(sqlstr);
 
-    for (i = 0; i < rs[0]['values'].length; ++i) {
-      
-      var descStr = '';
+    try {
+      for (i = 0; i < rs[0]['values'].length; ++i) {
+        
+        var descStr = '';
 
-      if (rs[0]['values'][i][1] !== null) {
-        descStr += rs[0]['values'][i][1];
+        if (rs[0]['values'][i][1] !== null) {
+          descStr += rs[0]['values'][i][1];
+        }
+
+        if (rs[0]['values'][i][2] !== null) {
+          descStr += '-' + rs[0]['values'][i][2];
+        }
+
+        descStr += ' [';
+
+        if (rs[0]['values'][i][3] !== null) {
+          descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
+        }
+
+        if (rs[0]['values'][i][5] !== null) {
+          descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
+        }
+
+        if (rs[0]['values'][i][7] !== null) {
+          descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
+        }
+
+        if (rs[0]['values'][i][9] !== null) {
+          descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
+        }
+
+        descStr += ']';
+
+        $('#trifecta_sets_added').append(descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][11] + '">X</a><br />')
       }
-
-      if (rs[0]['values'][i][2] !== null) {
-        descStr += '-' + rs[0]['values'][i][2];
-      }
-
-      descStr += ' [';
-
-      if (rs[0]['values'][i][3] !== null) {
-        descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
-      }
-
-      if (rs[0]['values'][i][5] !== null) {
-        descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
-      }
-
-      if (rs[0]['values'][i][7] !== null) {
-        descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
-      }
-
-      if (rs[0]['values'][i][9] !== null) {
-        descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
-      }
-
-      descStr += ']';
-
-      $('#trifecta_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
+    } catch (e) {
+      ;;;
     }
   }
 
@@ -1271,42 +1326,45 @@ function populateSetOfSets(db) {
 
     var rs = db.exec(sqlstr);
 
-    for (i = 0; i < rs[0]['values'].length; ++i) {
-      
-      var descStr = '';
+    try {
+      for (i = 0; i < rs[0]['values'].length; ++i) {
+        
+        var descStr = '';
 
-      if (rs[0]['values'][i][1] !== null) {
-        descStr += rs[0]['values'][i][1];
+        if (rs[0]['values'][i][1] !== null) {
+          descStr += rs[0]['values'][i][1];
+        }
+
+        if (rs[0]['values'][i][2] !== null) {
+          descStr += '-' + rs[0]['values'][i][2];
+        }
+
+        descStr += ' [';
+
+        if (rs[0]['values'][i][3] !== null) {
+          descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
+        }
+
+        if (rs[0]['values'][i][5] !== null) {
+          descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
+        }
+
+        if (rs[0]['values'][i][7] !== null) {
+          descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
+        }
+
+        if (rs[0]['values'][i][9] !== null) {
+          descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
+        }
+
+        descStr += ']';
+
+        $('#cooldown_sets_added').append(descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][11] + '">X</a><br />')
       }
-
-      if (rs[0]['values'][i][2] !== null) {
-        descStr += '-' + rs[0]['values'][i][2];
-      }
-
-      descStr += ' [';
-
-      if (rs[0]['values'][i][3] !== null) {
-        descStr += ' ' + rs[0]['values'][i][3] + '/' + rs[0]['values'][i][4] + 'rps';
-      }
-
-      if (rs[0]['values'][i][5] !== null) {
-        descStr += ' ' + rs[0]['values'][i][5] + '/' + rs[0]['values'][i][6] + 'min';
-      }
-
-      if (rs[0]['values'][i][7] !== null) {
-        descStr += ' ' + rs[0]['values'][i][7] + '/' + rs[0]['values'][i][8] + 'mi';
-      }
-
-      if (rs[0]['values'][i][9] !== null) {
-        descStr += ' ' + rs[0]['values'][i][9] + '/' + rs[0]['values'][i][10] + 'rst';
-      }
-
-      descStr += ']';
-
-      $('#cooldown_sets_added').append('<div class="delete">' + descStr + '<a class="delete_exercise_set_join" href="#" id="' + rs[0]['values'][i][10] + '">X</a></div>')
+    } catch (e) {
+      ;;;
     }
   }
-  
 }
 
 
