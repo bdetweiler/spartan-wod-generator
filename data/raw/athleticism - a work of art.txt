@@ -13,7 +13,7 @@ Main set
 
     Run 1/2 mile
     10 burpees
-    Recover 2-4 minutes with walk/jog
+    Recover 2-4 minutes with walk/jog       // 
 
     10 burpees
     Run 1/2 mile
