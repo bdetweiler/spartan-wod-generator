@@ -310,6 +310,7 @@ function saveSetOfSets(setType, db) {
 
   if (rs.length == 0) {
 
+    // If there's no set of this type for this WOD, get the max ID so we can add one
     sqlstr = "SELECT MAX(SET_OF_SETS_ID) FROM SET_OF_SETS";
     rs = db.exec(sqlstr);
     
@@ -355,13 +356,15 @@ function saveSetOfSets(setType, db) {
              + " WHERE SPARTAN_WOD_ID = " + spartanWODId + ";";
     } else if (setType === 'cooldown') { 
       sqlstr = "UPDATE SPARTAN_WOD"
-             + "   SET COOLDOWN_SET = " + setOfSetsId + " ";
+             + "   SET COOLDOWN_SET = " + setOfSetsId + " "
              + " WHERE SPARTAN_WOD_ID = " + spartanWODId + ";";
     } else {
       sqlstr = "UPDATE SPARTAN_WOD"
-             + "   SET MAIN_SET_" + setType + ' = ' + setOfSetsId + " ";
+             + "   SET MAIN_SET_" + setType + ' = ' + setOfSetsId + " "
              + " WHERE SPARTAN_WOD_ID = " + spartanWODId + ";";
     }
+
+    console.dir(sqlstr);
 
     rs = db.exec(sqlstr);
 
