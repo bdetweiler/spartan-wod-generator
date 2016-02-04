@@ -1,6 +1,6 @@
 Athleticism: Spartan 800
 
-“You have to fight to reach your dream. You have to sacrifice and work hard for it.” -Lionel Messi
+You have to fight to reach your dream. You have to sacrifice and work hard for it.Lionel Messi
 
 Warm-up
 
@@ -22,7 +22,7 @@ SUPER: X2
 
 BEAST: X3
 
-*very hard intensity – close to maximal
+*very hard intensity close to maximal
 
 Cool down
 
