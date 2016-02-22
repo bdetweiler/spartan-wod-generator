@@ -28,3 +28,16 @@ convert measurements into how I am measuring things. Discrete exercises with a s
 Continuous exercises, such as cycling or running, are divided into distance or duration. Since running is slightly more discrete, I measure it in distances of miles. 
 Cycling and swimming is measured in duration.
 Of course actual calories burned will vary with how high you're getting your heart rate, but we need some way of calculating the "intensity" so this was my compromise. 
+
+## Caveats
+
+Inevitably, not all human-generated WODs had a 1:1 mapping to my model. Sometimes, there were "or" conditions ("jog or jumprope for 10 minutes"). Sometimes, the instructions
+were fluffy (uphill sprints, start out walking, build to a sprint), etc. So I ended up compromising on a lot of these. When given the choice between jogging/running or something that 
+required equipment (like jumproping), I always chose the thing without equipment.
+
+Some instructions used duration instead of distance. I had originally planned on this, but I decided it would be easier if I kept discrete (countable) exercises as reps, 
+traveling exercises (running, swimming, etc) as distance, and non-traveling, non-discrete exercises (planks) as duration.
+
+This required some strong guessing when it comes to translating something like, "do one minute of pushups" to a discrete number. I basically just took a guess at what I can do
+in that time and that became my number of reps. But the training data isn't really the point. That can be changed to whatever you want, really. The point here was
+the probabilistic model built around Spartan-style WODs. 
